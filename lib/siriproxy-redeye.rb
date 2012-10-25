@@ -51,33 +51,33 @@ listen_for(/nickelodeon/i) {nick}
 
   def cnbc
     say "OK. Changing the channel to CNBC."
-    Rest.get("#{reurl2)#{cmdfour}")
-    Rest.get("#{reurl2)#{cmdthree}")
-    Rest.get("#{reurl2)#{cmdenter}")
+    Rest.get("#{reurl2}#{cmdfour}")
+    Rest.get("#{reurl2}#{cmdthree}")
+    Rest.get("#{reurl2}#{cmdenter}")
     request_completed
   end
 
   def espn
     say "OK. Changing the channel to ESPN."
-    Rest.get("#{reurl2)#{cmdthree}")
-    Rest.get("#{reurl2)#{cmdthree}")
-    Rest.get("#{reurl2)#{cmdenter}")
+    Rest.get("#{reurl2}#{cmdthree}")
+    Rest.get("#{reurl2}#{cmdthree}")
+    Rest.get("#{reurl2}#{cmdenter}")
     request_completed
   end
 
   def twc
     say "OK. Changing the channel to The Weather Channel."
-    Rest.get("#{reurl2)#{cmdfive}")
-    Rest.get("#{reurl2)#{cmdeight}")
-    Rest.get("#{reurl2)#{cmdenter}")
+    Rest.get("#{reurl2}#{cmdfive}")
+    Rest.get("#{reurl2}#{cmdeight}")
+    Rest.get("#{reurl2}#{cmdenter}")
     request_completed
   end
 
   def nick
     say "OK. Changing the channel to Nickelodeon."
-    Rest.get("#{reurl2)#{cmdsix}")
-    Rest.get("#{reurl2)#{cmdone}")
-    Rest.get("#{reurl2)#{cmdenter}")
+    Rest.get("#{reurl2}#{cmdsix}")
+    Rest.get("#{reurl2}#{cmdone}")
+    Rest.get("#{reurl2}#{cmdenter}")
     request_completed
   end
 
