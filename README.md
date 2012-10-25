@@ -3,7 +3,7 @@ siriproxy-redeye
 
 About
 -----
-Siriproxy-redeye is a [SiriProxy] (https://github.com/plamoni/SiriProxy) plugin that used the REST interface of [Thinkflood's RedEye] (http://thinkflood.com) series of IP to IR control devices.  It does not require a jailbreak, nor do I endorse doing so.
+Siriproxy-redeye is a [SiriProxy] (https://github.com/plamoni/SiriProxy) plugin that uses the REST interface of [Thinkflood's RedEye] (http://thinkflood.com) series of IP to IR control devices.  It does not require a jailbreak, nor do I endorse doing so.
 
 First, you must have SiriProxy installed and working.  
 
@@ -18,7 +18,7 @@ RedEye
 
 ThinkFlood had recently added a REST interface to both the original RedEye WiFi unit as well as the RedEye Pro models.   It does not work with the RedEye Mini. 
 
-The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST interface for both the Redeye and the RedEys Pro.    
+The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST interface for both the Redeye and the RedEye Pro.    
 
 Installation
 ------------
