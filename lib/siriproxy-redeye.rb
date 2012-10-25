@@ -18,8 +18,8 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
     format :xml
   end
 
-reurl1 = "#{reip1}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
-reurl2 = "#{reip2}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
+reurl1 = "#{self.reip1}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
+reurl2 = "#{self.reip2}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
 
 cmdzero 	= "3"
 cmdone 		= "4"
