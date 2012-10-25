@@ -1,9 +1,5 @@
-    - name: 'IPCam'
-      path: './plugins/siriproxy-ipcam'
-      camid: 'username'
-      campw: 'password'
-      camurl1: 'http://192.168.69.81/cgi/jpg/image.cgi' #URL of IP camera image.
-      camurl2: 'http://192.168.69.82/cgi/jpg/image.cgi' #URL of IP camera image.
-      camurl3: 'http://192.168.69.83/cgi/jpg/image.cgi' #URL of IP camera image.
-      camurl4: 'http://192.168.69.85/Jpeg/CamImg.jpg' #URL of IP camera image.
+    - name: 'RedEye'
+      path: './plugins/siriproxy-redeye'
+      reip1: 'http://192.168.69.76' #IP of redeye unit
+      reip2: 'http://192.168.69.77' #IP of redeye unit
  

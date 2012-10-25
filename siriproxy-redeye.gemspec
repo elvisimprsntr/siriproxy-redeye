@@ -2,13 +2,13 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
-  s.name        = "siriproxy-ipcam"
+  s.name        = "siriproxy-redeye"
   s.version     = "1.0"
   s.authors     = ["elvisimprsntr"]
   s.email       = [""]
-  s.homepage    = "https://github.com/elvisimprsntr/siriproxy-ipcam"
-  s.summary     = %q{SiriProxy plugin to push IP camera images to Siri}
-  s.description = %q{SiriProxy plugin to push IP camera images to Siri}
+  s.homepage    = "https://github.com/elvisimprsntr/siriproxy-redeye"
+  s.summary     = %q{SiriProxy plugin for Thinkflood's Redeye REST interface for IR control}
+  s.description = %q{SiriProxy plugin for Thinkflood's Redeye REST interface for IR control}
 
   s.rubyforge_project = ""
 
