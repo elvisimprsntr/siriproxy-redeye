@@ -1,22 +1,24 @@
-siriproxy-ipcam
-===============
+siriproxy-redeye
+================
 
 About
 -----
-Siriproxy-ipcam is a [SiriProxy] (https://github.com/plamoni/SiriProxy) plugin that allows you to push IP camera images to Apple's Siri interface on any iOS device that supports Siri.   It does not require a jailbreak, nor do I endorse doing so.
+Siriproxy-redeye is a [SiriProxy] (https://github.com/plamoni/SiriProxy) plugin that used the REST interface of [Thinkflood's RedEye] (http://thinkflood.com) series of IP to IR control devices.  It does not require a jailbreak, nor do I endorse doing so.
 
 First, you must have SiriProxy installed and working.  
 
-Second, you must have at least one IP camera on your local network that supports image/video streaming.  
+Second, you must have at least one RedEye unit on you home network and already programmed to control your IR devices.   
+
+Third, you will need to manually use the REST interface extract the information you need to make changes to this plugin for your setup.  
 
 Here is a short demonstration video: Coming soon…   
 
-Cameras
--------
+RedEye
+------
 
-Hopefully the documentation for your IP camera provides the URL for grabbing a still image.  If not, while I have not found a single resource that documents all the make and model IP camera image URLs, this site is a good reference: http://www.ispyconnect.com/sources.aspx
+ThinkFlood had recently added a REST interface to both the original RedEye WiFi unit as well as the RedEye Pro models.   It does not work with the RedEye Mini. 
 
-BTW, The Windows open source [iSpy security camera software] (http://www.ispyconnect.com) is the best I have come across.  While there are no Mac OS X or Linux versions, the source code is avaiable and they are adding support mobile device HTML5 access.  
+The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST interface for both the Redeye and the RedEys Pro.    
 
 Installation
 ------------
@@ -27,7 +29,7 @@ Installation
 
 - Get the latest repo   
 
-`wget "https://github.com/elvisimprsntr/siriproxy-ipcam/zipball/master"`
+`wget "https://github.com/elvisimprsntr/siriproxy-redeye/zipball/master"`
 
 - Unzip the repo  
 
@@ -35,11 +37,11 @@ Installation
 
 - Create a symbolic link. **Note: Replace #'s as appropriate.**  
 
-`ln -sf elvisimprsntr-siriproxy-ipcam-####### siriproxy-ipcam`
+`ln -sf elvisimprsntr-siriproxy-redeye-####### siriproxy-redeye`
 
 - Add the example configuration to the master config.yml  
 
-`cat siriproxy-ipcam/config-info.yml >> ~/.siriproxy/config.yml`
+`cat siriproxy-redeye/config-info.yml >> ~/.siriproxy/config.yml`
 
 - Edit the config.yml as required.     **Note: Make sure to line up the column spacing.**
 
@@ -47,12 +49,12 @@ Installation
 
 - Edit the plugin as you wish.  **Note: Repeat all the following steps if you make additional changes.**    
 
-`vim siriproxy-ipcam\lib\siriproxy-ipcam.rb`
+`vim siriproxy-redeye\lib\siriproxy-redeye.rb`
 
 - Copy the repo and the symbolic link to the appropriate install directory.  **Note: Replace #'s as appropriate.  Replace /usr/local/rvm/ with ~/.rvm/ depending on your Linux distribution**     
 
-`cp -rv elvisimprsntr-siriproxy-ipcam-####### /usr/local/rvm/gems/ruby-1.9.3-p###@SiriProxy/gems/siriproxy-0.3.#/plugins/`    
-`cp -rv siriproxy-ipcam /usr/local/rvm/gems/ruby-1.9.3-p###@SiriProxy/gems/siriproxy-0.3.#/plugins/`    
+`cp -rv elvisimprsntr-siriproxy-redeye-####### /usr/local/rvm/gems/ruby-1.9.3-p###@SiriProxy/gems/siriproxy-0.3.#/plugins/`    
+`cp -rv siriproxy-redeye /usr/local/rvm/gems/ruby-1.9.3-p###@SiriProxy/gems/siriproxy-0.3.#/plugins/`    
 
 - Navigate the SiriProxy directory  
 
@@ -73,19 +75,14 @@ Installation
 Usage
 -----
 
-**(Camera name) camera**
-- Pushes camera image to Siri  
-
-**Check cameras**
-- Pushes all camera images to Siri  
+- Under development
 
 To Do List
 ----------
 
 Let me know if you want to collaborate.   
 
-- Add authenticated IP camera access.
-- Add ability to launch a live IP camera feed or at least provide a button to do so.
+- Make plugin self aware of your configuration using the REST interface.
 
 Licensing
 ---------
