@@ -3,7 +3,6 @@ require 'cora'
 require 'httparty'
 require 'rubygems'
 require 'siri_objects'
-require 'commandid'
 
 class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   attr_accessor :reip1
@@ -15,27 +14,35 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
     @reUrl1 = "#{self.reip1}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
     @reUrl2 = "#{self.reip2}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
 
-	@cmdZero 	= 3
-	@cmdOne 	= 4
-	@cmdTwo 	= 5
-	@cmdThree 	= 6
-	@cmdFour 	= 7
-	@cmdFive 	= 8
-	@cmdSix 	= 9
-	@cmdSeven 	= 10
-	@cmdEight 	= 11
-	@cmdNine 	= 12
-	@cmdChup	= 18
-	@cmdChdn 	= 19
-	@cmdEnter 	= 14
-	@cmdInfo 	= 13
-	@cmdLang 	= 21
-	@cmdLast 	= 15
-	@cmdMute 	= 20
-	@cmdVolup 	= 16
-	@cmdVoldn 	= 17
+@cmdId = Hash.new
+@cmdId["0"] = 3
+@cmdId["1"] = 4
+@cmdId["2"] = 5
+@cmdId["3"] = 6
+@cmdId["4"] = 7
+@cmdId["5"] = 8
+@cmdId["6"] = 9
+@cmdId["7"] = 10
+@cmdId["8"] = 11
+@cmdId["9"] = 12
+@cmdId["chup"] = 18
+@cmdId["chdn"] = 19
+@cmdId["enter"] = 14
+@cmdId["info"] = 13
+@cmdId["lang"] = 21
+@cmdId["last"] = 15
+@cmdId["mute"] = 20
+@cmdId["volup"] = 16
+@cmdId["voldn"] = 17
 
-#	commandID(init)
+@stationId = Hash.new
+@stationId["nbc"] = 3
+@stationId["cbs"] = 9
+@stationId["abc"] = 10
+@stationId["fox"] = 11
+@stationId["espn"] = 22
+@stationId["cnbc"] = 43
+@stationId["weather channel"] = 58
 
   end
 
@@ -45,82 +52,39 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
 
-
-listen_for(/NBC/i) {nbc}
-listen_for(/CBS/i) {cbs}
-listen_for(/ABC/i) {abc}
-listen_for(/FOX/i) {fox}
-listen_for(/ESPN/i) {espn}
-listen_for(/CNBC/i) {cnbc}
-listen_for(/weather channel/i) {twc}
-
-
-  def nbc
-    say "OK. Changing the channel to NBC."
-    Rest.get("#{@reUrl2}#{@cmdThree}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdEnter}")
-    request_completed
+  listen_for(/channel ([0-9,]*[0-9])/i) do |number|
+	change_channel number
+  end
+ 
+  listen_for(/station (.*)/i) do |station|
+	change_station station
   end
 
-  def cbs
-    say "OK. Changing the channel to CBS."
-    Rest.get("#{@reUrl2}#{@cmdNine}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdEnter}")
+
+  def change_channel(number)
+	i = 0
+	say "OK. Changing to channel #{number}."
+	chan_str = number.to_s.split('')
+	while i < chan_str.length do
+		Rest.get("#{@reUrl2}#{@cmdId["#{chan_str[i]}"]}")
+		sleep(1)
+		i+=1
+	end
+	Rest.get("#{@reUrl2}#{@cmdId["enter"]}")
+    request_completed
+  end	
+
+  def change_station(station)
+	station = "#{station}".downcase
+	station = "#{station}".rstrip
+	number = "#{@stationId["#{station}"]}".to_i
+	if number > 0
+		change_channel number
+	else
+		say "Sorry, I can not find a station named #{station}."
+	end
     request_completed
   end
-
-  def abc
-    say "OK. Changing the channel to ABC."
-    Rest.get("#{@reUrl2}#{@cmdOne}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdZero}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdEnter}")
-    request_completed
-  end
-
-  def fox
-    say "OK. Changing the channel to FOX."
-    Rest.get("#{@reUrl2}#{@cmdOne}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdOne}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdEnter}")
-    request_completed
-  end
-
-  def espn
-    say "OK. Changing the channel to ESPN."
-    Rest.get("#{@reUrl2}#{@cmdThree}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdThree}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdEnter}")
-    request_completed
-  end
-
-  def cnbc
-    say "OK. Changing the channel to CNBC."
-    Rest.get("#{@reUrl2}#{@cmdFour}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdThree}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdEnter}")
-    request_completed
-  end
-
-  def twc
-    say "OK. Changing the channel to The Weather Channel."
-    Rest.get("#{@reUrl2}#{@cmdFive}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdEight}")
-    sleep(1)
-    Rest.get("#{@reUrl2}#{@cmdEnter}")
-    request_completed
-  end
-
 
 
 	
