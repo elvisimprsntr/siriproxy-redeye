@@ -40,8 +40,15 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @stationId["cbs"] = 9
 @stationId["abc"] = 10
 @stationId["fox"] = 11
-@stationId["espn"] = 22
+@stationId["css"] = 32
+@stationId["espn"] = 33
+@stationId["espn2"] = 34
+@stationId["sun sports"] = 35
+@stationId["golf channel"] = 36
+@stationId["fox sports"] = 37
 @stationId["cnbc"] = 43
+@stationId["foxnews"] = 44
+@stationId["fox news"] = 44
 @stationId["weather channel"] = 58
 
   end
