@@ -35,7 +35,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	@cmdVolup 	= 16
 	@cmdVoldn 	= 17
 
-	commandID
+#	commandID
 
   end
 
