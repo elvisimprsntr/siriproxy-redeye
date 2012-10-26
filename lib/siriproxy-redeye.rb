@@ -3,6 +3,7 @@ require 'cora'
 require 'httparty'
 require 'rubygems'
 require 'siri_objects'
+require 'commandid'
 
 class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   attr_accessor :reip1
@@ -33,6 +34,8 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	@cmdMute 	= 20
 	@cmdVolup 	= 16
 	@cmdVoldn 	= 17
+
+	commandID
 
   end
 
