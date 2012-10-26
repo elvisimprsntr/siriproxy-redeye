@@ -75,7 +75,13 @@ Installation
 Usage
 -----
 
-- Under development
+- Channel (number)
+
+Changes the channel
+
+- Station (name)
+
+Changes the channel
 
 To Do List
 ----------
