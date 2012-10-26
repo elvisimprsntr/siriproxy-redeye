@@ -1,3 +1,7 @@
+require 'cora'
+
+def commandID()
+
 cmdid = Hash.new
 
 cmdid["0"] = 3
@@ -19,3 +23,5 @@ cmdid["last"] = 15
 cmdid["mute"] = 20
 cmdid["volup"] = 16
 cmdid["voldn"] = 17
+
+end
