@@ -1,6 +1,6 @@
 require 'cora'
 
-def commandID()
+def commandID
 
 cmdid = Hash.new
 
