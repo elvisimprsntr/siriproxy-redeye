@@ -9,7 +9,7 @@ First, you must have SiriProxy installed and working.
 
 Second, you must have at least one RedEye unit on you home network and already programmed to control your IR devices.   
 
-Third, you will need to manually use the REST interface extract the information you need to make changes to this plugin for your setup.  I posted a simple [BASH script] (https://gist.github.com/3961767) which you can modify to retreive the information you need to modify this plugin for your setup.  
+Third, you will need to manually use the REST interface extract the information you need to make changes to this plugin for your setup.  Here is a simple [BASH script] (https://gist.github.com/3961767) which you can modify to retreive the information you need to modify this plugin for your setup.  
 
 Here is a short demonstration video: Coming soon…   
 
