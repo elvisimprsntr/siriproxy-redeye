@@ -1,4 +1,3 @@
-
 codes = Hash.new
 
 codes["0"] = 3
@@ -17,6 +16,6 @@ codes["enter"] = 14
 codes["info"] = 13
 codes["lang"] = 21
 codes["last"] = 15
-codes["mute"] = 17
+codes["mute"] = 20
 codes["volup"] = 16
 codes["voldn"] = 17
