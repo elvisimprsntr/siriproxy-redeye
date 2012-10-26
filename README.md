@@ -82,6 +82,7 @@ To Do List
 
 Let me know if you want to collaborate.   
 
+- Make code vs. channel a lookup table.
 - Pull in channel guide from Zap2It or some other TV guide database.
 - Make plugin self aware of your configuration using the REST interface.
 
