@@ -82,7 +82,7 @@ To Do List
 
 Let me know if you want to collaborate.   
 
-- Make code vs. channel a lookup table.
+- Make IR code vs. commandID key/value pairs
 - Add change by channel number.
 - Pull in channel guide from Zap2It or some other TV guide database.
 - Make plugin self aware of your configuration using the REST interface.
