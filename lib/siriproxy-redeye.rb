@@ -30,7 +30,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	@cmdInfo 	= 13
 	@cmdLang 	= 21
 	@cmdLast 	= 15
-	@cmdMute 	= 17
+	@cmdMute 	= 20
 	@cmdVolup 	= 16
 	@cmdVoldn 	= 17
 
