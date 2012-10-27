@@ -111,7 +111,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	chan_str = number.to_s.split('')
 	while i < chan_str.length do
 		Rest.get("#{@reUrl}#{@cmdId["#{chan_str[i]}"]}")
-		sleep(1)
+		sleep(0.5)
 		i+=1
 	end
 	Rest.get("#{@reUrl}#{@cmdId["enter"]}")
@@ -119,8 +119,8 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end	
 
   def change_station(station)
-	number = @stationId[station.downcase.strip].to_i
-	if number > 0
+	number = @stationId[station.downcase.strip]
+	unless number.nil?
 		change_channel number
 	else
 		say "Sorry, I can not find a station named #{station}."
@@ -129,8 +129,8 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   def send_command(command)
-	commandid = @cmdId[command.downcase.strip].to_i
-	if commandid > 0
+	commandid = @cmdId[command.downcase.strip]
+	unless commandid.nil?
 		say "OK. Sending command #{command}."
 		Rest.get("#{@reUrl}#{commandid}")
 	else
@@ -141,8 +141,8 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
 
   def change_redeye(redeye)
-	redeyeid = @redeyeId[redeye.downcase.strip].to_i
-	if redeyeid > 0
+	redeyeid = @redeyeId[redeye.downcase.strip]
+	unless redeyeid.nil?
 		say "OK. Changing to RedEye #{redeye}."
 		@reUrl = instance_variable_get("@reUrl#{redeyeid}")
 	else
