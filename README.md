@@ -11,7 +11,7 @@ Second, you must have at least one RedEye unit configured with a static IP addre
 
 Third, you will need to manually use the REST API to extract the information you need to make changes to this plugin for your setup.  
 
-Here is a short demonstration video: Coming soon…   
+Here is a short demonstration video: http://www.youtube.com/watch?v=Q81HMnjCGb8 
 
 RedEye
 ------
