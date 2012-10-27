@@ -13,6 +13,19 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
     self.reip2 = config["reip2"]
     @reUrl1 = "#{self.reip1}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
     @reUrl2 = "#{self.reip2}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
+    @reUrl = @reUrl2	
+
+@redeyeId = Hash.new
+@redeyeId["one"] = 1
+@redeyeId["house"] = 1
+@redeyeId["whole house"] = 1
+@redeyeId["garage"] = 1
+@redeyeId["bedroom"] = 1
+@redeyeId["to"] = 2
+@redeyeId["too"] = 2
+@redeyeId["two"] = 2
+@redeyeId["living"] = 2
+@redeyeId["living room"] = 2
 
 @cmdId = Hash.new
 @cmdId["0"] = 3
@@ -21,6 +34,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @cmdId["one"] = 4
 @cmdId["2"] = 5
 @cmdId["to"] = 5
+@cmdId["too"] = 5
 @cmdId["two"] = 5
 @cmdId["3"] = 6
 @cmdId["three"] = 6
@@ -84,7 +98,11 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	send_command command
   end
 
+  listen_for(/redeye (.*)/i) do |redeye|
+	change_redeye redeye
+  end
 
+  
 
 
   def change_channel(number)
@@ -92,17 +110,17 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	say "OK. Changing to channel #{number}."
 	chan_str = number.to_s.split('')
 	while i < chan_str.length do
-		Rest.get("#{@reUrl2}#{@cmdId["#{chan_str[i]}"]}")
+		Rest.get("#{@reUrl}#{@cmdId["#{chan_str[i]}"]}")
 		sleep(1)
 		i+=1
 	end
-	Rest.get("#{@reUrl2}#{@cmdId["enter"]}")
+	Rest.get("#{@reUrl}#{@cmdId["enter"]}")
     request_completed
   end	
 
   def change_station(station)
 	station = "#{station}".downcase
-	station = "#{station}".rstrip
+	station = "#{station}".strip
 	number = "#{@stationId["#{station}"]}".to_i
 	if number > 0
 		change_channel number
@@ -114,16 +132,35 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
   def send_command(command)
 	command = "#{command}".downcase
-	command = "#{command}".rstrip
+	command = "#{command}".strip
 	commandid = "#{@cmdId["#{command}"]}".to_i
 	if commandid > 0
 		say "OK. Sending command #{command}."
-		Rest.get("#{@reUrl2}#{commandid}")
+		Rest.get("#{@reUrl}#{commandid}")
 	else
 		say "Sorry, I am not programmed for command #{command}."
 	end
     request_completed	
   end
+
+
+  def change_redeye(redeye)
+	redeye = "#{redeye}".downcase
+	redeye = "#{redeye}".strip
+	redeyeid = "#{@redeyeId["#{redeye}"]}".to_i
+	if redeyeid > 0
+		say "OK. Changing to RedEye #{redeye}."
+# results in resel = "@reUrl2"  Does what I want.    
+		resel = "@reUrl#{redeyeid}"  
+# FIXIT: need to end up with the URL of the device, but can't find the right syntax.
+#		@reUrl = "#{#{resel}}"
+	else
+		say "Sorry, I am not programmed to control RedEye #{redeye}."
+	end
+    request_completed	
+  end
+
+
 
 
 end
