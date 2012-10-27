@@ -16,7 +16,7 @@ Here is a short demonstration video: Coming soon…
 RedEye
 ------
 
-ThinkFlood had recently added a REST interface to both the original RedEye WiFi unit as well as the RedEye Pro models.   It does not work with the RedEye Mini. 
+ThinkFlood has added a REST interface to both the original RedEye WiFi unit as well as the RedEye Pro models.   It does not work with the RedEye Mini. 
 
 The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST interface for both the Redeye and the RedEye Pro.    
 
