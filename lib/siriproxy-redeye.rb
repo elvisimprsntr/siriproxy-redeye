@@ -15,8 +15,6 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
     @reUrl2 = "#{self.reip2}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
     @reUrl = @reUrl2	
 
-# What ever you want to call your RedEye units if you have more than one.  The assignment above will be the default.
-# Note: Must all be lower case. Use multiple entries for variability is Siri response.
 @redeyeId = Hash.new
 @redeyeId["one"] = 1
 @redeyeId["house"] = 1
@@ -29,8 +27,6 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @redeyeId["living"] = 2
 @redeyeId["living room"] = 2
 
-# Channel number and command syntax to actual RedEye device commandIds
-# Note: Must all be lower case. Use multiple entries for variability is Siri response.
 @cmdId = Hash.new
 @cmdId["0"] = 3
 @cmdId["zero"] = 3
@@ -66,8 +62,6 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @cmdId["volume up"] = 16
 @cmdId["volume down"] = 17
 
-# Station names to channel numbers.  
-# Note: Must all be lower case. Use multiple entries for variability is Siri response.
 @stationId = Hash.new
 @stationId["nbc"] = 3
 @stationId["cbs"] = 9
@@ -77,6 +71,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @stationId["espn"] = 33
 @stationId["espn2"] = 34
 @stationId["sun sports"] = 35
+@stationId["son sports"] = 35
 @stationId["golf channel"] = 36
 @stationId["fox sports"] = 37
 @stationId["cnbc"] = 43
