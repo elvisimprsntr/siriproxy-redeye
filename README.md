@@ -23,7 +23,7 @@ The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/
 
 Here is a simple [BASH script] (https://gist.github.com/3961767) which you can modify to retreive the information you need to modify this plugin for your setup.  
 
-Support for multiple RedEye units is thanks in part to some of the very telented folks at [Stackoverflow] (http://stackoverflow.com) and helping me improve my code.  I still have a lot to learn.   
+Support for multiple RedEye units is thanks in part to some of the very talented folks at [Stackoverflow] (http://stackoverflow.com) and helping me improve my code.  I still have a lot to learn.   
 
 
 
