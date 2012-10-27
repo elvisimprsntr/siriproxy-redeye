@@ -68,7 +68,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   listen_for(/command (.*)/i) do |command|
-	issue_command command
+	send_command command
   end
 
 
@@ -99,7 +99,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
     request_completed
   end
 
-  def issue_command(command)
+  def send_command(command)
 	command = "#{command}".downcase
 	command = "#{command}".rstrip
 	commandid = "#{@cmdId["#{command}"]}".to_i
