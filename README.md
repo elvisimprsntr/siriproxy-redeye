@@ -9,14 +9,14 @@ First, you must have SiriProxy installed and working.
 
 Second, you must have at least one RedEye unit on you home network and already programmed to control your IR devices.   
 
-Third, you will need to manually use the REST interface extract the information you need to make changes to this plugin for your setup.  
+Third, you will need to manually use the REST API to extract the information you need to make changes to this plugin for your setup.  
 
 Here is a short demonstration video: Coming soon…   
 
 RedEye
 ------
 
-ThinkFlood has added a REST interface to both the original RedEye WiFi unit as well as the RedEye Pro models.   It does not work with the RedEye Mini. 
+ThinkFlood has added a REST API to both the original RedEye WiFi unit as well as the RedEye Pro models.   There is not REST API for the RedEye Mini. 
 
 The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST interface for both the Redeye and the RedEye Pro.    
 
