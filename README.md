@@ -7,7 +7,7 @@ Siriproxy-redeye is a [SiriProxy] (https://github.com/plamoni/SiriProxy) plugin 
 
 First, you must have SiriProxy installed and working.  
 
-Second, you must have at least one RedEye unit on you home network and already programmed to control your IR devices.   
+Second, you must have at least one RedEye unit configured with a static IP address on you home network and already programmed to control your IR devices.   
 
 Third, you will need to manually use the REST API to extract the information you need to make changes to this plugin for your setup.  
 
