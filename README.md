@@ -85,6 +85,10 @@ Changes the channel
 
 Changes the channel
 
+- Command (command)
+
+Sends IR command
+
 To Do List
 ----------
 
