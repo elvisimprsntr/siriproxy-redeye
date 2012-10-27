@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.authors     = ["elvisimprsntr"]
   s.email       = [""]
   s.homepage    = "https://github.com/elvisimprsntr/siriproxy-redeye"
-  s.summary     = %q{SiriProxy plugin for Thinkflood's Redeye REST interface for IR control}
-  s.description = %q{SiriProxy plugin for Thinkflood's Redeye REST interface for IR control}
+  s.summary     = %q{SiriProxy plugin for Thinkflood's Redeye REST API for IR control}
+  s.description = %q{SiriProxy plugin for Thinkflood's Redeye REST API for IR control}
 
   s.rubyforge_project = ""
 
