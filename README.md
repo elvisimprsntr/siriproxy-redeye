@@ -89,6 +89,10 @@ Changes the channel
 
 Sends a single IR command
 
+- RedEye (name)
+
+Will change RedEye units if you have more than one.
+
 To Do List
 ----------
 
