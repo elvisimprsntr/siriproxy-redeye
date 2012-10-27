@@ -25,15 +25,15 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @cmdId["7"] = 10
 @cmdId["8"] = 11
 @cmdId["9"] = 12
-@cmdId["chup"] = 18
-@cmdId["chdn"] = 19
+@cmdId["channel up"] = 18
+@cmdId["channel down"] = 19
 @cmdId["enter"] = 14
 @cmdId["info"] = 13
-@cmdId["lang"] = 21
+@cmdId["language"] = 21
 @cmdId["last"] = 15
 @cmdId["mute"] = 20
-@cmdId["volup"] = 16
-@cmdId["voldn"] = 17
+@cmdId["volume up"] = 16
+@cmdId["volume down"] = 17
 
 @stationId = Hash.new
 @stationId["nbc"] = 3
@@ -67,6 +67,12 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	change_station station
   end
 
+  listen_for(/command (.*)/i) do |command|
+	issue_command command
+  end
+
+
+
 
   def change_channel(number)
 	i = 0
@@ -93,6 +99,18 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
     request_completed
   end
 
+  def issue_command(command)
+	command = "#{command}".downcase
+	command = "#{command}".rstrip
+	commandid = "#{@cmdId["#{command}"]}".to_i
+	if commandid > 0
+		say "OK. Sending command #{command}."
+		Rest.get("#{@reUrl2}#{commandid}")
+	else
+		say "Sorry, I am not programmed for command #{command}."
+	end
+    request_completed	
+  end
 
-	
+
 end
