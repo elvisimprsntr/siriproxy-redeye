@@ -119,9 +119,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end	
 
   def change_station(station)
-	station = "#{station}".downcase
-	station = "#{station}".strip
-	number = "#{@stationId["#{station}"]}".to_i
+	number = @stationId[station.downcase.strip].to_i
 	if number > 0
 		change_channel number
 	else
@@ -131,9 +129,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   def send_command(command)
-	command = "#{command}".downcase
-	command = "#{command}".strip
-	commandid = "#{@cmdId["#{command}"]}".to_i
+	commandid = @cmdId[command.downcase.strip].to_i
 	if commandid > 0
 		say "OK. Sending command #{command}."
 		Rest.get("#{@reUrl}#{commandid}")
@@ -145,21 +141,15 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
 
   def change_redeye(redeye)
-	redeye = "#{redeye}".downcase
-	redeye = "#{redeye}".strip
-	redeyeid = "#{@redeyeId["#{redeye}"]}".to_i
+	redeyeid = @redeyeId[redeye.downcase.strip].to_i
 	if redeyeid > 0
 		say "OK. Changing to RedEye #{redeye}."
-# results in resel = "@reUrl2"  Does what I want.    
-		resel = "@reUrl#{redeyeid}"  
-# FIXIT: need to end up with the URL of the device, but can't find the right syntax.
-#		@reUrl = "#{#{resel}}"
+		@reUrl = instance_variable_get("@reUrl#{redeyeid}")
 	else
 		say "Sorry, I am not programmed to control RedEye #{redeye}."
 	end
     request_completed	
   end
-
 
 
 
