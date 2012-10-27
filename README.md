@@ -13,6 +13,7 @@ Third, you will need to manually use the REST API to extract the information you
 
 Here is a short demonstration video: http://www.youtube.com/watch?v=Q81HMnjCGb8 
 
+
 RedEye
 ------
 
@@ -21,6 +22,10 @@ ThinkFlood has added a REST API to both the original RedEye WiFi unit as well as
 The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST interface for both the Redeye and the RedEye Pro.    
 
 Here is a simple [BASH script] (https://gist.github.com/3961767) which you can modify to retreive the information you need to modify this plugin for your setup.  
+
+Support for multiple RedEye units is thanks to some of the telented folks at [Stackoverflow] (http://stackoverflow.com) for helpimg me figure this out and helping me improve my code.  I still have a lot to learn.   
+
+
 
 Installation
 ------------
@@ -89,9 +94,9 @@ Changes the channel
 
 Sends a single IR command
 
-- RedEye (name)
+- RedEye (name) 
 
-Will change RedEye units if you have more than one.
+Will change RedEye units if you have more than one.    
 
 To Do List
 ----------
