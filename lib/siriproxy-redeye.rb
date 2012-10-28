@@ -11,9 +11,12 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   def initialize(config)
     self.reip1 = config["reip1"]
     self.reip2 = config["reip2"]
-    @reUrl1 = "#{self.reip1}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
-    @reUrl2 = "#{self.reip2}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
-    @reUrl = @reUrl2	
+
+# Index array of all your RedEye units.
+@reUrl = Hash.new
+@reUrl["1"] = "#{self.reip1}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
+@reUrl["2"] = "#{self.reip2}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
+@reSel = 2
 
 # What ever you want to call your RedEye units if you have more than one.  The assignment above will be the default.
 # Note: Must all be lower case. Use multiple entries for variability is Siri response.
@@ -117,11 +120,11 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	say "OK. Changing to channel #{number}."
 	chan_str = number.to_s.split('')
 	while i < chan_str.length do
-		Rest.get("#{@reUrl}#{@cmdId["#{chan_str[i]}"]}")
+		Rest.get("#{@reUrl["#{@reSel}"]}#{@cmdId["#{chan_str[i]}"]}")
 		sleep(0.5)
 		i+=1
 	end
-	Rest.get("#{@reUrl}#{@cmdId["enter"]}")
+	Rest.get("#{@reUrl["#{@reSel}"]}#{@cmdId["enter"]}")
     request_completed
   end	
 
@@ -139,7 +142,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	commandid = @cmdId[command.downcase.strip]
 	unless commandid.nil?
 		say "OK. Sending command #{command}."
-		Rest.get("#{@reUrl}#{commandid}")
+		Rest.get("#{@reUrl["#{@reSel}"]}#{commandid}")
 	else
 		say "Sorry, I am not programmed for command #{command}."
 	end
@@ -151,7 +154,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	redeyeid = @redeyeId[redeye.downcase.strip]
 	unless redeyeid.nil?
 		say "OK. Changing to RedEye #{redeye}."
-		@reUrl = instance_variable_get("@reUrl#{redeyeid}")
+		@reSel = redeyeid
 	else
 		say "Sorry, I am not programmed to control RedEye #{redeye}."
 	end
