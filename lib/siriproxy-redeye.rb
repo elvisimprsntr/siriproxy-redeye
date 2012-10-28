@@ -12,14 +12,14 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
     self.reip1 = config["reip1"]
     self.reip2 = config["reip2"]
 
-# Index array of all your RedEye units.
+# Your RedEye unit URLs for controlling channels.
 @reUrl = Hash.new
 @reUrl["1"] = "#{self.reip1}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
 @reUrl["2"] = "#{self.reip2}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
 @reSel = 2
 
 # What ever you want to call your RedEye units if you have more than one.  The assignment above will be the default.
-# Note: Must all be lower case. Use multiple entries for variability is Siri response.
+# Note: Must all be lower case. Use multiple entries for variability in Siri response.
 @redeyeId = Hash.new
 @redeyeId["one"] = 1
 @redeyeId["house"] = 1
@@ -33,7 +33,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @redeyeId["living room"] = 2
 
 # Channel number and command syntax to actual RedEye device commandIds
-# Note: Must all be lower case. Use multiple entries for variability is Siri response.
+# Note: Must all be lower case. Use multiple entries for variability in Siri response.
 @cmdId = Hash.new
 @cmdId["0"] = 3
 @cmdId["zero"] = 3
@@ -70,7 +70,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @cmdId["volume down"] = 17
 
 # Station names to channel numbers.  
-# Note: Must all be lower case. Use multiple entries for variability is Siri response.
+# Note: Must all be lower case. Use multiple entries for variability in Siri response.
 @stationId = Hash.new
 @stationId["nbc"] = 3
 @stationId["cbs"] = 9
@@ -79,6 +79,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @stationId["css"] = 32
 @stationId["espn"] = 33
 @stationId["espn2"] = 34
+@stationId["espn two"] = 34
 @stationId["sun sports"] = 35
 @stationId["son sports"] = 35
 @stationId["golf channel"] = 36
