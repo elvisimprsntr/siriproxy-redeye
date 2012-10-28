@@ -82,21 +82,17 @@ Installation
 Usage
 -----
 
-- Channel (number)
+**Channel (number)**
+- Changes the channel
 
-Changes the channel
+**Station (name)**
+- Changes the channel
 
-- Station (name)
+**Command (command)**
+- Sends a single IR command
 
-Changes the channel
-
-- Command (command)
-
-Sends a single IR command
-
-- RedEye (name) 
-
-Will change RedEye units if you have more than one.    
+**RedEye (name)** 
+-Will change RedEye units if you have more than one.    
 
 To Do List
 ----------
