@@ -22,7 +22,7 @@ if File.exists?(@reFile)
 	@reSel = File.open(@reFile).first
 else
 	@reSel = 2
-	File.open(@reFile, 'w+') {|f| f.write(@reSel)}
+	File.open(@reFile, 'w') {|f| f.write(@reSel)}
 end
 
 # What ever you want to call your RedEye units if you have more than one.  The assignment above will be the default.
