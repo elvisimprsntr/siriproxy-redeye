@@ -92,7 +92,8 @@ Usage
 - Sends a single IR command
 
 **RedEye (name)**   
-- Will change RedEye units if you have more than one.    
+- Will change RedEye units if you have more than one.  
+- Writes selected RedEye to file for improved reliability.
 
 To Do List
 ----------
