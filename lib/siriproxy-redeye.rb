@@ -16,7 +16,14 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 @reUrl = Hash.new
 @reUrl["1"] = "#{self.reip1}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
 @reUrl["2"] = "#{self.reip2}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
-@reSel = 2
+
+@reFile = "#{Dir.home}/.siriproxy/resel"
+if File.exists?(@reFile)
+	@reSel = File.open(@reFile).first
+else
+	@reSel = 2
+	File.open(@reFile, 'w+') {|f| f.write(@reSel)}
+end
 
 # What ever you want to call your RedEye units if you have more than one.  The assignment above will be the default.
 # Note: Must all be lower case. Use multiple entries for variability in Siri response.
@@ -156,6 +163,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	unless redeyeid.nil?
 		say "OK. Changing to RedEye #{redeye}."
 		@reSel = redeyeid
+		File.open(@reFile, 'w') {|f| f.write(@reSel)}
 	else
 		say "Sorry, I am not programmed to control RedEye #{redeye}."
 	end
