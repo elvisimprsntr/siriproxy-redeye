@@ -54,9 +54,9 @@ Installation
 
 `vim ~/.siriproxy/config.yml`
 
-- Edit the plugin as you wish.  **Note: Repeat all the following steps if you make additional changes.**    
+- Edit the redeyeconfig.rb as you wish.  **Note: Repeat all the following steps if you make additional changes.**    
 
-`vim siriproxy-redeye\lib\siriproxy-redeye.rb`
+`vim siriproxy-redeye\lib\redeyeconfig.rb`
 
 - Copy the repo and the symbolic link to the appropriate install directory.  **Note: Replace #'s as appropriate.  Replace /usr/local/rvm/ with ~/.rvm/ depending on your Linux distribution**     
 
