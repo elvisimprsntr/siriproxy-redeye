@@ -12,8 +12,8 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
 # Your RedEye unit URLs for controlling channels.
 @reUrl = Hash.new
-@reUrl["1"] = "#{config["reip1"]}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
-@reUrl["2"] = "#{config["reip2"]}:8080/redeye/rooms/0/devices/2/commands/send?commandId="
+@reUrl["1"] = config["reip1"] + ":8080/redeye/rooms/0/devices/2/commands/send?commandId="
+@reUrl["2"] = config["reip2"] + ":8080/redeye/rooms/0/devices/2/commands/send?commandId="
 
 @reFile = "#{Dir.home}/.siriproxy/resel"
 if File.exists?(@reFile)
