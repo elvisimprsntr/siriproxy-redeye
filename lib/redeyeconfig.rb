@@ -1,4 +1,3 @@
-
 def configRedeye(config)
 
 # Your RedEye unit URLs for controlling channels.
@@ -8,7 +7,7 @@ def configRedeye(config)
 
 @reFile = "#{Dir.home}/.siriproxy/resel"
 if File.exists?(@reFile)
-  @reSel = File.open(@reFile).first
+	@reSel = File.open(@reFile).first
 else
 	@reSel = 2
 	File.open(@reFile, 'w') {|f| f.write(@reSel)}
