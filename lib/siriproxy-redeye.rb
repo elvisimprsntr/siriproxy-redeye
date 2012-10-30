@@ -1,8 +1,5 @@
 require 'uri'
-require 'cora'
 require 'httparty'
-require 'rubygems'
-require 'siri_objects'
 require 'redeyeconfig'
 
 class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
