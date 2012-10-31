@@ -19,7 +19,7 @@ RedEye
 
 ThinkFlood has added a REST API to both the original RedEye WiFi unit as well as the RedEye Pro models.   There is no REST API for the RedEye Mini. 
 
-The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST interface for both the Redeye and the RedEye Pro.    
+The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST API for both the Redeye and the RedEye Pro.    
 
 Here is a simple [BASH script] (https://gist.github.com/3961767) which you can modify to retreive the information you need to modify this plugin for your setup.  
 
