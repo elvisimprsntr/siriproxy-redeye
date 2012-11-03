@@ -100,8 +100,7 @@ To Do List
 
 Let me know if you want to collaborate.   
 
-- Determine if there is a way to pass in a key/value hash.
-- Add ability to control multiple devices
+- Add ability to control multiple rooms/devices
 - Make plugin self aware of your configuration using the REST interface.
 - Pull in channel guide from Zap2It or some other TV guide database.
 
