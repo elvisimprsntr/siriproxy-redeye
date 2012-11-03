@@ -2,10 +2,9 @@ require 'httparty'
 require 'redeyeconfig'
 
 class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
-  attr_accessor :reip1
-  attr_accessor :reip2
+  attr_accessor :reips
   
-  def initialize(config)
+  def initialize(config = {})
 	configRedeye(config)
   end
 
@@ -31,19 +30,17 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	change_redeye redeye
   end
 
-  
-
 
   def change_channel(number)
 	i = 0
 	say "OK. Changing to channel #{number}."
 	chan_str = number.to_s.split('')
 	while i < chan_str.length do
-		Rest.get("#{@reUrl["#{@reSel}"]}#{@cmdId["#{chan_str[i]}"]}")
+		Rest.get("#{@reIp["#{@reSel}"]}#{@roomId["all"]}#{@deviceId["cable box"]}#{@cmdId["#{chan_str[i]}"]}")
 		sleep(0.5)
 		i+=1
 	end
-	Rest.get("#{@reUrl["#{@reSel}"]}#{@cmdId["enter"]}")
+	Rest.get("#{@reIp["#{@reSel}"]}#{@roomId["all"]}#{@deviceId["cable box"]}#{@cmdId["enter"]}")
     request_completed
   end	
 
@@ -61,7 +58,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	commandid = @cmdId[command.downcase.strip]
 	unless commandid.nil?
 		say "OK. Sending command #{command}."
-		Rest.get("#{@reUrl["#{@reSel}"]}#{commandid}")
+		Rest.get("#{@reIp["#{@reSel}"]}#{@roomId["all"]}#{@deviceId["cable box"]}#{commandid}")
 	else
 		say "Sorry, I am not programmed for command #{command}."
 	end
