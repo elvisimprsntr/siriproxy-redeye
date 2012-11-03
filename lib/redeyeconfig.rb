@@ -1,9 +1,7 @@
 def configRedeye(config)
 
-# Your RedEye unit URLs for controlling channels.
-@reUrl = Hash.new
-@reUrl["1"] = config["reip1"] + ":8080/redeye/rooms/0/devices/2/commands/send?commandId="
-@reUrl["2"] = config["reip2"] + ":8080/redeye/rooms/0/devices/2/commands/send?commandId="
+@reIp = Hash.new
+@reIp = config["reips"]
 
 @reFile = "#{Dir.home}/.siriproxy/resel"
 if File.exists?(@reFile)
@@ -26,6 +24,16 @@ end
 @redeyeId["two"] = 2
 @redeyeId["living"] = 2
 @redeyeId["living room"] = 2
+
+# URLs for multiple rooms for same RedEye.
+# Note: Must all be lower case. Use multiple entries for variability in Siri response.
+@roomId = Hash.new
+@roomId["all"] = "/redeye/rooms/0"
+
+# URLs for multiple devices for same RedEye.
+# Note: Must all be lower case. Use multiple entries for variability in Siri response.
+@deviceId = Hash.new
+@deviceId["cable box"] = "/devices/2/commands/send?commandId="
 
 # Channel number and command syntax to actual RedEye device commandIds
 # Note: Must all be lower case. Use multiple entries for variability in Siri response.
