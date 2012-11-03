@@ -1,5 +1,4 @@
     - name: 'RedEye'
       path: './plugins/siriproxy-redeye'
-      reip1: 'http://192.168.69.76' #IP of redeye unit
-      reip2: 'http://192.168.69.77' #IP of redeye unit
+      reips: { '1': 'http://192.168.69.76:8080', '2': 'http://192.168.69.77:8080' }
  
