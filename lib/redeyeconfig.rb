@@ -65,7 +65,7 @@ end
 @cmdId["9"] 		= "/commands/send?commandId=12"
 @cmdId["nine"] 		= "/commands/send?commandId=12"
 @cmdId["channel up"] 	= "/commands/send?commandId=18"
-@cmdId["channel down"] = "/commands/send?commandId=19"
+@cmdId["channel down"]	= "/commands/send?commandId=19"
 @cmdId["enter"] 	= "/commands/send?commandId=14"
 @cmdId["info"] 		= "/commands/send?commandId=13"
 @cmdId["language"] 	= "/commands/send?commandId=21"
