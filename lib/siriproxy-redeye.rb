@@ -37,7 +37,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	chan_str = number.to_s.split('')
 	while i < chan_str.length do
 		Rest.get(@reIp[@reSel] + @roomId[@reRoom] + @deviceId[@reDevice] + @cmdId[chan_str[i]])
-		sleep(0.5)
+		sleep(0.2)
 		i+=1
 	end
 	Rest.get(@reIp[@reSel] + @roomId[@reRoom] + @deviceId[@reDevice] + @cmdId["enter"])
