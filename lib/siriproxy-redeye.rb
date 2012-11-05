@@ -68,10 +68,10 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
   def change_redeye(redeye)
 	redeyeid = @redeyeId[redeye.downcase.strip]
-	unless redeyeid.nil?
+	unless redeyeid.nil?  
 		say "OK. Changing to RedEye #{redeye}."
 		@reSel = redeyeid
-		File.open(@reFile, 'w') {|f| f.write(@reSel)}
+		File.open(@reFile, "w") {|f| f.write(@reSel)} 
 	else
 		say "Sorry, I am not programmed to control RedEye #{redeye}."
 	end
