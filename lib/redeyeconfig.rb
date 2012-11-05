@@ -7,7 +7,7 @@ def configRedeye(config)
 if File.exists?(@reFile)
 	@reSel = File.open(@reFile).first
 else
-	@reSel = 2
+	@reSel = "2"
 	File.open(@reFile, "w") {|f| f.write(@reSel)}
 end
 
