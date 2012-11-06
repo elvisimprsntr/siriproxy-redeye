@@ -4,7 +4,7 @@ require 'redeyeconfig'
 class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   attr_accessor :reips
   
-  def initialize(config)
+  def initialize(config={})
 	configRedeye(config)
   end
 
