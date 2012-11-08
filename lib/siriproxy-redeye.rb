@@ -55,7 +55,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   def send_command(command)
-	commandid = @cmdId[@reRoom][@reDevice][command.downcase.strip] rescue nil
+	commandid = @cmdId[@reRoom][@reDevice][command.downcase.strip]
 	unless commandid.empty?
 		say "OK. Sending command #{command}."
 		Rest.get(@reIp[@reSel] + @roomId[@reRoom] + @deviceId[@reRoom][@reDevice] + commandid)
