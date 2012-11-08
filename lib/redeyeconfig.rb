@@ -7,23 +7,9 @@ def configRedeye(config)
 if File.exists?(@reFile)
 	@reSel = File.open(@reFile).first
 else
-	@reSel = "2"
+	@reSel = "living room"
 	File.open(@reFile, "w") {|f| f.write(@reSel)}
 end
-
-# What ever you want to call your RedEye units if you have more than one.  The assignment above will be the default.
-# Note: Must all be lower case. Use multiple entries for variability in Siri response.
-@redeyeId = Hash.new
-@redeyeId["one"] = "1"
-@redeyeId["house"] = "1"
-@redeyeId["whole house"] = "1"
-@redeyeId["garage"] = "1"
-@redeyeId["bedroom"] = "1"
-@redeyeId["to"] = "2"
-@redeyeId["too"] = "2"
-@redeyeId["two"] = "2"
-@redeyeId["living"] = "2"
-@redeyeId["living room"] = "2"
 
 # URLs for multiple rooms for same RedEye.
 # Note: Must all be lower case. Use multiple entries for variability in Siri response.
