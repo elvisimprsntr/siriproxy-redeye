@@ -56,10 +56,10 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
   def send_command(command)
 	commandid = @cmdId[@reRoom][@reDevice][command.downcase.strip]
-# FIXIT: Does not properly handle no match.  Results in "can't convert Hash into String (TypeError)"
-# 	This may be due to the fact that dynamically created multidimensional hash will create new keys if a match is not found which will pass the NIL check.
 	unless commandid.nil?
 		say "OK. Sending command #{command}."
+# FIXIT: Does not properly handle no match.  Results in "can't convert Hash into String (TypeError)"
+# 	This may be due to the fact that dynamically created multidimensional hash will create new keys if a match is not found which will pass the NIL check.
 		Rest.get(@reIp[@reSel] + @roomId[@reRoom] + @deviceId[@reRoom][@reDevice] + commandid)
 	else
 		say "Sorry, I am not programmed for command #{command}."
