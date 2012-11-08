@@ -102,7 +102,7 @@ To Do List
 Let me know if you want to collaborate.   
 
 - Make plugin self aware of your configuration using the REST interface.
-- Pull in channel guide from Rovi, Zap2It, or some other TV guide database.
+- Pull in channel guide from Rovi, Zap2It, Yahoo, AOL, or some other TV guide database.
 
 
 Licensing
