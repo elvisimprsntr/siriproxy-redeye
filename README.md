@@ -13,6 +13,9 @@ Third, you will need to manually use the REST API to extract the information you
 
 Here is a short demonstration video: http://www.youtube.com/watch?v=Q81HMnjCGb8 
 
+I can't thank enough some of very talented folks at [Stackoverflow] (http://stackoverflow.com) for helping me improve my code.  Admittedly, I still have a lot more to learn and improve upon as this is my first SiriProxy plugin from scratch. 
+
+
 
 RedEye
 ------
@@ -22,8 +25,6 @@ ThinkFlood has added a REST API to both the original RedEye WiFi unit as well as
 The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST API for both the Redeye and the RedEye Pro.    
 
 Here is a simple [BASH script] (https://gist.github.com/3961767) which you can modify to retreive the information you need to modify this plugin for your setup.  
-
-I can't thank enough some of very talented folks at [Stackoverflow] (http://stackoverflow.com) for helping me improve my code.  Admittedly, I still have a lot more to learn and improve upon as this is my first SiriProxy plugin from scratch. 
 
 
 
