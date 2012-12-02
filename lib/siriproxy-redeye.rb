@@ -34,9 +34,9 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   def change_channel(number)
 	i = 0
 	say "OK. Changing to channel #{number}."
-	chan_str = number.to_s.split('')
-	while i < chan_str.length do
-		Rest.get(@reIp[@reSel] + @roomId[@reRoom] + @deviceId[@reRoom][@reDevice] + @cmdId[@reRoom][@reDevice][chan_str[i]])
+	channnel = number.to_s.split('')
+	while i < channel.length do
+		Rest.get(@reIp[@reSel] + @roomId[@reRoom] + @deviceId[@reRoom][@reDevice] + @cmdId[@reRoom][@reDevice][channnel[i]])
 		sleep(0.2)
 		i+=1
 	end
