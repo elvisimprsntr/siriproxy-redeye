@@ -15,7 +15,7 @@ Here is a short demonstration video: http://www.youtube.com/watch?v=Q81HMnjCGb8
 
 I can't thank enough some of very talented folks at [Stackoverflow] (http://stackoverflow.com) for helping me improve my code.  Admittedly, I still have a lot more to learn and improve upon as this is my first SiriProxy plugin from scratch. 
 
-I have received numerous offers to make a donation to my project to help offset the cost of hardware and for my time.  If you feel so inclined you can donate thru PayPal.  
+I have received offers to make a donation to my project to help offset the cost of hardware and for my time.  If you feel so inclined you can donate thru PayPal.  
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SB6A4AFSC5LFQ)  
 
