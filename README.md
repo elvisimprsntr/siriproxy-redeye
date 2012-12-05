@@ -5,7 +5,7 @@ About
 -----
 Siriproxy-redeye is a [SiriProxy] (https://github.com/plamoni/SiriProxy) plugin that uses the REST API of [Thinkflood's RedEye] (http://thinkflood.com) series of IP to IR control devices.  It does not require a jailbreak, nor do I endorse doing so.
 
-First, you must have SiriProxy installed and working.  
+First, you must have SiriProxy installed and working.  [HOW-TOs for Siriprixy] (https://github.com/plamoni/SiriProxy/wiki/Installation-How-Tos) 
 
 Second, you must have at least one RedEye unit configured with a static IP address on your network and already programmed to control your IR devices.   
 
