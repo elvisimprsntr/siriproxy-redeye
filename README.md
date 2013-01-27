@@ -11,7 +11,7 @@ Second, you must have at least one RedEye unit configured with a static IP addre
 
 Third, you will need to manually use the REST API to extract the information you need to make changes to this plugin for your setup.  
 
-Here is a short demonstration video: http://www.youtube.com/watch?v=sTvLdUtaEoU 
+Here is a short demonstration video: http://www.youtube.com/watch?v=PXmCiaRc9XU#t=01m33s 
 
 I can't thank enough some of very talented folks at [Stackoverflow] (http://stackoverflow.com) for helping me improve my code.  Admittedly, I still have a lot more to learn and improve upon as this is my first SiriProxy plugin from scratch. 
 
