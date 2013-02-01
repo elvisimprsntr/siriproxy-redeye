@@ -98,7 +98,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   def change_device(device)
-	unless @deviceId[device.downcase.strip].nil?
+	unless @deviceId[@reSel["room"]][device.downcase.strip].nil?
 		say "OK. Changing to device #{device}."
 		@reSel["device"] = device.downcase.strip
 		write_resel
