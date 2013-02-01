@@ -86,18 +86,26 @@ Installation
 Usage
 -----
 
-**Channel (number)**
-- Changes the channel
+**Channel (number {point number})**
+- Changes the channel.
+- Supports both integer and OTA sub-channel numbers.
 
 **Station (name)**
-- Changes the channel
+- Changes the channel.
 
 **Command (command)**
-- Sends a single IR command
+- Sends a single IR command.
 
 **RedEye (name)**   
-- Will change RedEye units if you have more than one.  
-- Writes selected RedEye to file for improved reliability.
+- Change RedEye units if you have more than one.  
+- Prompts you to select a new room.
+
+**Room (name)**
+- Change room, if you have more than one room for RedEye Pro.
+- Prompts you to select a new device.
+
+**Device (name)** 
+- Change device, if you have more than one device per room.
 
 To Do List
 ----------
