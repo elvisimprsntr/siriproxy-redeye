@@ -44,7 +44,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	say "OK. Changing to channel #{number}."
 	channelno = number.to_s.split('')
 	while i < channelno.length do
-		Rest.get(@reUrl + @cmdId[@reSel["room"]][@reSel["device"]][channelno[i]])
+		Rest.get(@cmdUrl + @cmdId[@reSel["room"]][@reSel["device"]][channelno[i]])
 		sleep(0.2)
 		i+=1
 	end
@@ -65,7 +65,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	commandid = @cmdId[@reSel["room"]][@reSel["device"]][command.downcase.strip]
 	unless commandid.empty?
 		say "OK. Sending command #{command}."
-		Rest.get(@reUrl + commandid)
+		Rest.get(@cmdUrl + commandid)
 	else
 		say "Sorry, I am not programmed for command #{command}."
 	end
@@ -110,7 +110,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
   def write_resel
 	CSV.open(@reFile, "wb") {|csv| @reSel.to_a.each {|elem| csv << elem} }
-	@reUrl = @reIp[@reSel["redeye"]] + @roomId[@reSel["room"]] + @deviceId[@reSel["room"]][@reSel["device"]] + "/commands/send?commandId="
+	@cmdUrl = @reIp[@reSel["redeye"]] + @roomId[@reSel["room"]] + @deviceId[@reSel["room"]][@reSel["device"]] + "/commands/send?commandId="
   end
 
 
