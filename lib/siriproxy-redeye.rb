@@ -1,4 +1,5 @@
 require 'httparty'
+require 'csv'
 require 'redeyeconfig'
 
 class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
@@ -14,7 +15,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
 
-  listen_for(/channel ([0-9,]*[0-9])/i) do |number|
+  listen_for(/channel ([0-9,]*[0-9](.*[0-9])?)/i) do |number|  
 	change_channel number
   end
  
@@ -30,22 +31,28 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	change_redeye redeye
   end
 
+  listen_for(/room (.*)/i) do |room|
+	change_room room
+  end
+
+  listen_for(/device (.*)/i) do |device|
+	change_device device
+  end
 
   def change_channel(number)
 	i = 0
 	say "OK. Changing to channel #{number}."
 	channelno = number.to_s.split('')
 	while i < channelno.length do
-		Rest.get(@reIp[@reSel] + @roomId[@reRoom] + @deviceId[@reRoom][@reDevice] + @cmdId[@reRoom][@reDevice][channelno[i]])
+		Rest.get(@reUrl + @cmdId[@reSel["room"]][@reSel["device"]][channelno[i]])
 		sleep(0.2)
 		i+=1
 	end
-	Rest.get(@reIp[@reSel] + @roomId[@reRoom] + @deviceId[@reRoom][@reDevice] + @cmdId[@reRoom][@reDevice]["enter"])
     request_completed
   end	
 
   def change_station(station)
-	number = @stationId[station.downcase.strip]
+	number = @stationId[@reSel["feed"]][station.downcase.strip]
 	unless number.nil?
 		change_channel number
 	else
@@ -55,10 +62,10 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   def send_command(command)
-	commandid = @cmdId[@reRoom][@reDevice][command.downcase.strip]
+	commandid = @cmdId[@reSel["room"]][@reSel["device"]][command.downcase.strip]
 	unless commandid.empty?
 		say "OK. Sending command #{command}."
-		Rest.get(@reIp[@reSel] + @roomId[@reRoom] + @deviceId[@reRoom][@reDevice] + commandid)
+		Rest.get(@reUrl + commandid)
 	else
 		say "Sorry, I am not programmed for command #{command}."
 	end
@@ -69,14 +76,42 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   def change_redeye(redeye)
 	unless @reIp[redeye.downcase.strip].nil?
 		say "OK. Changing to RedEye #{redeye}."
-		@reSel = redeye.downcase.strip
-		File.open(@reFile, "w") {|f| f.write(@reSel)} 
+		@reSel["redeye"] = redeye.downcase.strip
+		room = ask "Which room would you like to control?" 
+		change_room room
 	else
 		say "Sorry, I am not programmed to control RedEye #{redeye}."
 	end
     request_completed	
   end
 
+  def change_room(room)
+	unless @roomId[room.downcase.strip].nil?
+		say "OK. Changing to room #{room}."
+		@reSel["room"] = room.downcase.strip
+		device = ask "Which device would you like to control?" 
+		change_device device
+	else
+		say "Sorry, I am not programmed to control room #{room}."
+	end
+    request_completed	
+  end
+
+  def change_device(device)
+	unless @deviceId[device.downcase.strip].nil?
+		say "OK. Changing to device #{device}."
+		@reSel["device"] = device.downcase.strip
+		write_resel
+	else
+		say "Sorry, I am not programmed to control device #{device}."
+	end
+    request_completed	
+  end
+
+  def write_resel
+	CSV.open(@reFile, "wb") {|csv| @reSel.to_a.each {|elem| csv << elem} }
+	@reUrl = @reIp[@reSel["redeye"]] + @roomId[@reSel["room"]] + @deviceId[@reSel["room"]][@reSel["device"]] + "/commands/send?commandId="
+  end
 
 
 end

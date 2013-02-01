@@ -3,81 +3,101 @@ def configRedeye(config)
 @reIp = Hash.new
 @reIp = config["reips"]
 
-@reFile = "#{Dir.home}/.siriproxy/resel"
-if File.exists?(@reFile)
-	@reSel = File.open(@reFile).first
-else
-	@reSel = "living room"
-	File.open(@reFile, "w") {|f| f.write(@reSel)}
-end
-
 # URLs for multiple rooms for same RedEye.
 # Note: Must all be lower case. Use multiple entries for variability in Siri response.
 @roomId = Hash.new
-@roomId["all"] = "/redeye/rooms/0"
-@reRoom = "all"
+@roomId["living"] = "/redeye/rooms/0"
+@roomId["house"] = "/redeye/rooms/0"
 
 # URLs for multiple devices for same RedEye.
 # Note: Must all be lower case. Use multiple entries for variability in Siri response.
 @deviceId = Hash.new { |h,k| h[k] = Hash.new }
-@deviceId["all"]["cable box"] = "/devices/2"
-@reDevice = "cable box"
+@deviceId["living"]["tv"] = "/devices/194"
+@deviceId["house"]["dta"] = "/devices/140"
 
 # Channel number and command syntax to actual RedEye device commandIds
 # Note: Must all be lower case. Use multiple entries for variability in Siri response.
 @cmdId = Hash.new(&(p=lambda{|h,k| h[k] = Hash.new(&p)}))
-@cmdId["all"]["cable box"]["0"] 		= "/commands/send?commandId=3"
-@cmdId["all"]["cable box"]["zero"] 		= "/commands/send?commandId=3"
-@cmdId["all"]["cable box"]["1"] 		= "/commands/send?commandId=4"
-@cmdId["all"]["cable box"]["one"] 		= "/commands/send?commandId=4"
-@cmdId["all"]["cable box"]["2"] 		= "/commands/send?commandId=5"
-@cmdId["all"]["cable box"]["to"] 		= "/commands/send?commandId=5"
-@cmdId["all"]["cable box"]["too"] 		= "/commands/send?commandId=5"
-@cmdId["all"]["cable box"]["two"] 		= "/commands/send?commandId=5"
-@cmdId["all"]["cable box"]["3"] 		= "/commands/send?commandId=6"
-@cmdId["all"]["cable box"]["three"] 		= "/commands/send?commandId=6"
-@cmdId["all"]["cable box"]["4"] 		= "/commands/send?commandId=7"
-@cmdId["all"]["cable box"]["for"] 		= "/commands/send?commandId=7"
-@cmdId["all"]["cable box"]["four"] 		= "/commands/send?commandId=7"
-@cmdId["all"]["cable box"]["5"] 		= "/commands/send?commandId=8"
-@cmdId["all"]["cable box"]["five"] 		= "/commands/send?commandId=8"
-@cmdId["all"]["cable box"]["6"] 		= "/commands/send?commandId=9"
-@cmdId["all"]["cable box"]["six"] 		= "/commands/send?commandId=9"
-@cmdId["all"]["cable box"]["7"] 		= "/commands/send?commandId=10"
-@cmdId["all"]["cable box"]["seven"] 		= "/commands/send?commandId=10"
-@cmdId["all"]["cable box"]["8"] 		= "/commands/send?commandId=11"
-@cmdId["all"]["cable box"]["ate"] 		= "/commands/send?commandId=11"
-@cmdId["all"]["cable box"]["eight"] 		= "/commands/send?commandId=11"
-@cmdId["all"]["cable box"]["9"] 		= "/commands/send?commandId=12"
-@cmdId["all"]["cable box"]["nine"] 		= "/commands/send?commandId=12"
-@cmdId["all"]["cable box"]["channel up"] 	= "/commands/send?commandId=18"
-@cmdId["all"]["cable box"]["channel down"]	= "/commands/send?commandId=19"
-@cmdId["all"]["cable box"]["enter"] 		= "/commands/send?commandId=14"
-@cmdId["all"]["cable box"]["info"] 		= "/commands/send?commandId=13"
-@cmdId["all"]["cable box"]["language"] 		= "/commands/send?commandId=21"
-@cmdId["all"]["cable box"]["last"] 		= "/commands/send?commandId=15"
-@cmdId["all"]["cable box"]["mute"] 		= "/commands/send?commandId=20"
-@cmdId["all"]["cable box"]["volume up"] 	= "/commands/send?commandId=16"
-@cmdId["all"]["cable box"]["volume down"] 	= "/commands/send?commandId=17"
+@cmdId["living"]["tv"]["."]		= "199"
+@cmdId["living"]["tv"]["0"]		= "141"
+@cmdId["living"]["tv"]["zero"] 	= "141"
+@cmdId["living"]["tv"]["1"] 		= "138"
+@cmdId["living"]["tv"]["one"] 		= "138"
+@cmdId["living"]["tv"]["2"] 		= "181"
+@cmdId["living"]["tv"]["to"] 		= "181"
+@cmdId["living"]["tv"]["too"] 		= "181"
+@cmdId["living"]["tv"]["two"] 		= "181"
+@cmdId["living"]["tv"]["3"] 		= "185"
+@cmdId["living"]["tv"]["three"] 	= "185"
+@cmdId["living"]["tv"]["4"] 		= "189"
+@cmdId["living"]["tv"]["for"] 		= "189"
+@cmdId["living"]["tv"]["four"] 	= "189"
+@cmdId["living"]["tv"]["5"] 		= "192"
+@cmdId["living"]["tv"]["five"] 	= "192"
+@cmdId["living"]["tv"]["6"] 		= "135"
+@cmdId["living"]["tv"]["six"] 		= "135"
+@cmdId["living"]["tv"]["7"] 		= "137"
+@cmdId["living"]["tv"]["seven"] 	= "137"
+@cmdId["living"]["tv"]["8"] 		= "11"
+@cmdId["living"]["tv"]["ate"] 		= "11"
+@cmdId["living"]["tv"]["eight"] 	= "11"
+@cmdId["living"]["tv"]["9"] 		= "140"
+@cmdId["living"]["tv"]["nine"] 	= "140"
+@cmdId["living"]["tv"]["channel up"] 	= "187"
+@cmdId["living"]["tv"]["channel down"] = "190"
+@cmdId["living"]["tv"]["last"] 	= "136"
+@cmdId["living"]["tv"]["mute"] 	= "134"
+@cmdId["living"]["tv"]["volume up"] 	= "180"
+@cmdId["living"]["tv"]["volume down"] = "184"
+@cmdId["house"]["dta"]["."]		= "171"
+@cmdId["house"]["dta"]["0"]		= "169"
+@cmdId["house"]["dta"]["zero"] 	= "169"
+@cmdId["house"]["dta"]["1"] 		= "159"
+@cmdId["house"]["dta"]["one"] 		= "159"
+@cmdId["house"]["dta"]["2"] 		= "160"
+@cmdId["house"]["dta"]["to"] 		= "160"
+@cmdId["house"]["dta"]["too"] 		= "160"
+@cmdId["house"]["dta"]["two"] 		= "160"
+@cmdId["house"]["dta"]["3"] 		= "162"
+@cmdId["house"]["dta"]["three"] 	= "162"
+@cmdId["house"]["dta"]["4"] 		= "163"
+@cmdId["house"]["dta"]["for"] 		= "163"
+@cmdId["house"]["dta"]["four"] 	= "163"
+@cmdId["house"]["dta"]["5"] 		= "164"
+@cmdId["house"]["dta"]["five"] 	= "164"
+@cmdId["house"]["dta"]["6"] 		= "165"
+@cmdId["house"]["dta"]["six"] 		= "165"
+@cmdId["house"]["dta"]["7"] 		= "166"
+@cmdId["house"]["dta"]["seven"] 	= "166"
+@cmdId["house"]["dta"]["8"] 		= "167"
+@cmdId["house"]["dta"]["ate"] 		= "167"
+@cmdId["house"]["dta"]["eight"] 	= "167"
+@cmdId["house"]["dta"]["9"] 		= "168"
+@cmdId["house"]["dta"]["nine"] 	= "168"
 
 # Station names to channel numbers.  
 # Note: Must all be lower case. Use multiple entries for variability in Siri response.
-@stationId = Hash.new
-@stationId["nbc"] = 3
-@stationId["cbs"] = 9
-@stationId["abc"] = 10
-@stationId["fox"] = 11
-@stationId["css"] = 32
-@stationId["espn"] = 33
-@stationId["espn2"] = 34
-@stationId["espn two"] = 34
-@stationId["sun sports"] = 35
-@stationId["son sports"] = 35
-@stationId["golf channel"] = 36
-@stationId["fox sports"] = 37
-@stationId["cnbc"] = 43
-@stationId["foxnews"] = 44
-@stationId["fox news"] = 44
-@stationId["weather channel"] = 58
+@stationId = Hash.new { |h,k| h[k] = Hash.new }
+@stationId["ota"]["nbc"] = "5.1"
+@stationId["ota"]["cbs"] = "12.1"
+@stationId["ota"]["radar"] = "12.3"
+@stationId["ota"]["weather"] = "12.3"
+@stationId["ota"]["abc"] = "25.1"
+@stationId["ota"]["fox"] = "29.1"
+@stationId["ota"]["pbs"] = "42.1"
+
+# Get URL for current room and device
+@reFile = "#{Dir.home}/.siriproxy/resel.csv"
+@reSel = Hash.new
+if File.exists?(@reFile)
+	@reSel = Hash[CSV.read(@reFile)]
+else
+	@reSel["redeye"] = "living"
+	@reSel["room"] = "living"
+	@reSel["device"] = "tv"
+	@reSel["feed"] = "ota"
+end
+
+	write_resel
 
 end

@@ -1,5 +1,5 @@
     - name: 'RedEye'
       path: './plugins/siriproxy-redeye'
-      reips: { 'whole house': 'http://192.168.69.76:8080', 
-               'living room': 'http://192.168.69.77:8080' }
+      reips: { 'house': 'http://192.168.69.76:8080', 
+               'living': 'http://192.168.69.77:8080' }
  
