@@ -1,8 +1,5 @@
 def configRedeye(config)
 
-@reIp = Hash.new
-@reIp = config["reips"]
-
 # URLs for multiple rooms for same RedEye.
 # Note: Must all be lower case. Use multiple entries for variability in Siri response.
 @roomId = Hash.new

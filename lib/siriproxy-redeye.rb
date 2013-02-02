@@ -6,6 +6,9 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   attr_accessor :reips
   
   def initialize(config = {})
+	@reIp = Hash.new
+	@reIp = config["reips"]
+	
 	configRedeye(config)
   end
 
@@ -17,26 +20,32 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
   listen_for(/channel ([0-9,]*[0-9](.*[0-9])?)/i) do |number|  
 	change_channel number
+    request_completed		
   end
  
   listen_for(/station (.*)/i) do |station|
-	change_station station
+	change_station station.downcase.strip
+    request_completed		
   end
 
   listen_for(/command (.*)/i) do |command|
-	send_command command
+	send_command command.downcase.strip
+    request_completed		
   end
 
   listen_for(/redeye (.*)/i) do |redeye|
-	change_redeye redeye
+	change_redeye redeye.downcase.strip
+    request_completed		
   end
 
   listen_for(/room (.*)/i) do |room|
-	change_room room
+	change_room room.downcase.strip
+    request_completed		
   end
 
   listen_for(/device (.*)/i) do |device|
-	change_device device
+	change_device device.downcase.strip
+    request_completed		
   end
 
   def change_channel(number)
@@ -48,64 +57,58 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 		sleep(0.2)
 		i+=1
 	end
-    request_completed
   end	
 
   def change_station(station)
-	number = @stationId[@reSel["feed"]][station.downcase.strip]
+	number = @stationId[@reSel["feed"]][station]
 	unless number.nil?
 		change_channel number
 	else
 		say "Sorry, I can not find a station named #{station}."
 	end
-    request_completed
   end
 
   def send_command(command)
-	commandid = @cmdId[@reSel["room"]][@reSel["device"]][command.downcase.strip]
+	commandid = @cmdId[@reSel["room"]][@reSel["device"]][command]
 	unless commandid.empty?
 		say "OK. Sending command #{command}."
 		Rest.get(@cmdUrl + commandid)
 	else
 		say "Sorry, I am not programmed for command #{command}."
 	end
-    request_completed	
   end
 
 
   def change_redeye(redeye)
-	unless @reIp[redeye.downcase.strip].nil?
+	unless @reIp[redeye].nil?
 		say "OK. Changing to RedEye #{redeye}."
-		@reSel["redeye"] = redeye.downcase.strip
+		@reSel["redeye"] = redeye
 		room = ask "Which room would you like to control?" 
-		change_room room
+		change_room room.downcase.strip
 	else
 		say "Sorry, I am not programmed to control RedEye #{redeye}."
 	end
-    request_completed	
   end
 
   def change_room(room)
-	unless @roomId[room.downcase.strip].nil?
+	unless @roomId[room].nil?
 		say "OK. Changing to room #{room}."
-		@reSel["room"] = room.downcase.strip
+		@reSel["room"] = room
 		device = ask "Which device would you like to control?" 
-		change_device device
+		change_device device.downcase.strip
 	else
 		say "Sorry, I am not programmed to control room #{room}."
 	end
-    request_completed	
   end
 
   def change_device(device)
-	unless @deviceId[@reSel["room"]][device.downcase.strip].nil?
+	unless @deviceId[@reSel["room"]][device].nil?
 		say "OK. Changing to device #{device}."
-		@reSel["device"] = device.downcase.strip
+		@reSel["device"] = device
 		write_resel
 	else
 		say "Sorry, I am not programmed to control device #{device}."
 	end
-    request_completed	
   end
 
   def write_resel
