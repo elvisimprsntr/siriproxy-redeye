@@ -93,7 +93,7 @@ else
 	@reSel["room"] = "living"
 	@reSel["device"] = "tv"
 	@reSel["feed"] = "ota"
-	write_resel
 end
+	write_resel
 
 end
