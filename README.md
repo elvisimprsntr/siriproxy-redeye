@@ -9,7 +9,9 @@ First, you must have SiriProxy installed and working.  [HOW-TOs for Siriprixy] (
 
 Second, you must have at least one RedEye unit configured with a static IP address on your network and already programmed to control your IR devices.   
 
-Third, you will need to manually use the REST API to extract the information you need to make changes to this plugin for your setup.  
+Third, siriproxy-redeye plugin will now auto detect your RedEye configuration, but you will need to customize the redeyeconfig.rb file for your specific installation. 
+
+**Note: In order to change channels with sub-channel numbers, you will need to change the dash command name from "Dash" to "." in your RedEye units for the applicable tuner devices.  You will need to change the redeye/room/activity/device/command names to something that can be spoken since siriproxy-redeye performs a direct match against the Siri response.  You can also add additional entries to the cached YAML configuration files for variability in Siri response, but keep in mind siriproxy-redeye will write over those cached configuration files if a file error is detected or you command siriproxy-redeye to reinitialize.**
 
 Here is a short demonstration video: http://www.youtube.com/watch?v=PXmCiaRc9XU#t=01m33s 
 
@@ -28,7 +30,6 @@ ThinkFlood has added a REST API to both the original RedEye WiFi unit as well as
 The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST API for both the Redeye and the RedEye Pro.    
 
 Here is a simple [BASH script] (https://gist.github.com/3961767) which you can modify to retrieve the information you need to modify this plugin for your setup.  
-
 
 
 Installation
@@ -86,12 +87,18 @@ Installation
 Usage
 -----
 
+**Redeye initialize**
+- Will re-initialize the plugin when you have made changes to your RedEye units.
+
 **Channel (number {point number})**
 - Changes the channel.
 - Supports both integer and OTA sub-channel numbers.
 
 **Station (name)**
 - Changes the channel.
+
+**Activity (name)**
+- Launches an activity.
 
 **Command (command)**
 - Sends a single IR command.
@@ -107,12 +114,16 @@ Usage
 **Device (name)** 
 - Change device, if you have more than one device per room.
 
+**Feed (name)** 
+- Changes the station name/channel lookup.
+
+
 To Do List
 ----------
 
 Let me know if you want to collaborate.   
 
-- Make plugin self aware of your configuration using the REST interface.
+- Push a list of valid selections to Siri if a direct match is not made.
 - Pull in channel guide from Rovi, Zap2It, Yahoo, AOL, or some other TV guide database.
 
 
