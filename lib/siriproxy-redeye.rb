@@ -180,8 +180,8 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 		@reSel = @default
 		File.write "#{Dir.home}/.siriproxy/reSel.yml", YAML.dump(@reSel)
 	end
+	puts @reSel
 	@cmdURL = @redeyeIP[@reSel["redeye"]] + @roomID[@reSel["redeye"]][@reSel["room"]] + @deviceID[@reSel["room"]][@reSel["device"]]
-	puts @cmdURL
   end
 		  		
   def update_resel
