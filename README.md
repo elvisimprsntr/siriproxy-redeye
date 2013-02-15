@@ -11,8 +11,6 @@ Second, you must have at least one RedEye unit configured with a static IP addre
 
 Third, siriproxy-redeye plugin will now auto detect your RedEye configuration, but you will need to customize the redeyeconfig.rb file for your specific installation. 
 
-**Note: In order to change channels with sub-channel numbers, you will need to change the dash command name from "Dash" to "." in your RedEye units for the applicable tuner devices.  You will need to change the redeye/room/activity/device/command names to something that can be spoken since siriproxy-redeye performs a direct match against the Siri response.  You can also add additional entries to the cached YAML configuration files for variability in Siri response, but keep in mind siriproxy-redeye will write over those cached configuration files if a file error is detected or you command siriproxy-redeye to reinitialize.**
-
 Here is a short demonstration video: http://www.youtube.com/watch?v=PXmCiaRc9XU#t=01m33s 
 
 I can't thank enough some of very talented folks at [Stackoverflow] (http://stackoverflow.com) for helping me improve my code.  Admittedly, I still have a lot more to learn and improve upon as this is my first SiriProxy plugin from scratch. 
@@ -30,6 +28,9 @@ ThinkFlood has added a REST API to both the original RedEye WiFi unit as well as
 The [RedEye Advanced Programming Manual] (http://thinkflood.com/products/redeye/programming-manual.pdf) documents the REST API for both the Redeye and the RedEye Pro.    
 
 Here is a simple [BASH script] (https://gist.github.com/3961767) which you can modify to retrieve the information you need to modify this plugin for your setup.  
+
+**Note: In order to change channels with sub-channel numbers, you will need to change the dash command name from "Dash" to "." in your RedEye units for the applicable tuner devices.  You will need to change the redeye/room/activity/device/command names to something that can be spoken since siriproxy-redeye performs a direct match against the Siri response.  You can also add additional entries to the cached YAML configuration files for variability in Siri response, but keep in mind siriproxy-redeye will write over those cached configuration files if a file error is detected or you command siriproxy-redeye to reinitialize.**
+
 
 
 Installation
