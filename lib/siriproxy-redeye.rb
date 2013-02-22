@@ -74,7 +74,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   listen_for(/device (.*)/i) do |device|
-	change_device device.downcase.strip
+	change_device(@reSel["room"], device.downcase.strip)
     request_completed		
   end
 
@@ -129,14 +129,18 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	unless @redeyeIP[redeye].nil?
 		say "Changing to RedEye #{redeye}."
 		@reSel["redeye"] = redeye
-		unless @roomID[redeye][redeye].nil?
-			change_room(redeye, redeye)
+		if @roomID[redeye].length == 1
+			change_room(redeye, @roomID[redeye].keys[0])
 		else
 			room = ask "Which room would you like to control?" 
 			change_room(redeye, room.downcase.strip)
 		end
 	else
 		say "Sorry, I am not programmed to control RedEye #{redeye}."
+		say "Here is the list of RedEyes."
+		@redeyeIP.each_key {|redeye| say redeye}
+		redeye = ask "Which RedEye would you like to control?"  
+		change_redeye(redeye.downcase.strip)
 	end
   end
 
@@ -144,20 +148,32 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	unless @roomID[redeye][room].nil?
 		say "Changing to room #{room}."
 		@reSel["room"] = room
-		device = ask "Which device would you like to control?" 
-		change_device device.downcase.strip
+		if @deviceID[room].length == 1
+			change_device(room, @deviceID[room].keys[0])
+		else
+			device = ask "Which device would you like to control?" 
+			change_device(room, device.downcase.strip)
+		end
 	else
 		say "Sorry, I am not programmed to control room #{room}."
+		say "Here is a list of rooms in RedEye #{redeye}"
+		@roomID[redeye].each_key {|room| say room}
+		room = ask "Which room would you like to control?"  
+		change_room(redeye, room.downcase.strip)
 	end
   end
 
-  def change_device(device)
-	unless @deviceID[@reSel["room"]][device].nil?
+  def change_device(room, device)
+	unless @deviceID[room][device].nil?
 		say "Changing to device #{device}."
 		@reSel["device"] = device
 		update_resel
 	else
 		say "Sorry, I am not programmed to control device #{device}."
+		say "Here is a list of devices in room #{room}."
+		@deviceID[room].each_key {|device| say device}
+		device = ask "Which device would you like to control?"  
+		change_device(room, device.downcase.strip)
 	end
   end
 
@@ -171,7 +187,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	end
   end
 
-############# Remember last device
+############# Remember
 
   def init_url
   	begin
