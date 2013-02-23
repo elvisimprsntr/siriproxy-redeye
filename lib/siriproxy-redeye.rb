@@ -37,13 +37,13 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   
   listen_for(/redeye initialize/i) do
 	say "One moment while I initialize RedEye plugin..."
-  	Thread.new {
+	Thread.new {
 		init_redeyes
 		init_custom
 		init_url
 		say "SiriProxy RedEye plugin initialized."
 		request_completed
-    }		
+	}		
   end
 
   listen_for(/channel ([0-9,]*[0-9](.*[0-9])?)/i) do |number|  
