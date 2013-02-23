@@ -124,7 +124,6 @@ To Do List
 
 Let me know if you want to collaborate.   
 
-- Push a list of valid selections to Siri if a direct match is not made.
 - Pull in channel guide from Rovi, Zap2It, Yahoo, AOL, or some other TV guide database.
 
 
