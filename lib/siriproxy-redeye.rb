@@ -57,7 +57,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   listen_for(/activity (.*)/i) do |activity|
-	launch_activity activity.downcase.strip
+	launch_activity(@reSel["room"], activity.downcase.strip)
 	request_completed		
   end
 
@@ -108,13 +108,17 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	end
   end
 
-  def launch_activity(activity)
-	activityid = @activityID[@reSel["room"]][activity]
+  def launch_activity(room, activity)
+	activityid = @activityID[room][activity]
 	unless activityid.nil?
 		say "OK. Launching activity #{activity}."
 		Rest.get(@cmdURL + activityid)
 	else
 		say "Sorry, I am not programmed for activity #{activity}."
+		say "Here is the list of activities in room #{room}."
+		@activityID[room].each_key {|activity| say activity}
+		activity = ask "Which activity would you like to launch?"  
+		launch_activity(room, activity.downcase.strip)
 	end
   end
 
