@@ -36,54 +36,54 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 ############# Commands
   
   listen_for(/redeye initialize/i) do
-  	say "One moment while I initialize RedEye plugin..."
+	say "One moment while I initialize RedEye plugin..."
   	Thread.new {
-  		init_redeyes
+		init_redeyes
 		init_custom
 		init_url
-  		say "SiriProxy RedEye plugin initialized."
-    	request_completed
+		say "SiriProxy RedEye plugin initialized."
+		request_completed
     }		
   end
 
   listen_for(/channel ([0-9,]*[0-9](.*[0-9])?)/i) do |number|  
 	change_channel number
-    request_completed		
+	request_completed		
   end
  
   listen_for(/station (.*)/i) do |station|
 	change_station station.downcase.strip
-    request_completed		
+	request_completed		
   end
 
   listen_for(/activity (.*)/i) do |activity|
 	launch_activity activity.downcase.strip
-    request_completed		
+	request_completed		
   end
 
   listen_for(/command (.*)/i) do |command|
 	send_command command.downcase.strip
-    request_completed		
+	request_completed		
   end
 
   listen_for(/redeye (.*)/i) do |redeye|
 	change_redeye redeye.downcase.strip
-    request_completed		
+	request_completed		
   end
 
   listen_for(/room (.*)/i) do |room|
 	change_room(@reSel["redeye"], room.downcase.strip)
-    request_completed		
+	request_completed		
   end
 
   listen_for(/device (.*)/i) do |device|
 	change_device(@reSel["room"], device.downcase.strip)
-    request_completed		
+	request_completed		
   end
 
   listen_for(/feed (.*)/i) do |feed|
 	change_feed feed.downcase.strip
-    request_completed		
+	request_completed		
   end
 
 ############# Actions
