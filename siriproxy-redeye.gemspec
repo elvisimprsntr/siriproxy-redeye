@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/* 2> /dev/null`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.add_runtime_dependency "httparty"
+  s.add_runtime_dependency "dnssd"
   s.add_runtime_dependency "siriproxy", ">=0.4.4"
+
 
 end

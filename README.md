@@ -36,6 +36,10 @@ Here is a simple [BASH script] (https://gist.github.com/3961767) which you can m
 Installation
 ------------
 
+- Install DNSSD library dependancies
+
+`apt-get install libavahi-compat-libdnssd-dev -y` 
+
 - Navigate to the SiriProxy plugins directory  
 
 `cd ~/SiriProxy/plugins/`
@@ -123,6 +127,10 @@ To Do List
 ----------
 
 If you want to collaborate, review the issues list for things to implement.  Fork, modify, test, and submit a pull request. 
+<<<<<<< HEAD
+=======
+
+>>>>>>> itterating on auto discovery
 
 Licensing
 ---------

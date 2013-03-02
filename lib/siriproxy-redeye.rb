@@ -1,18 +1,17 @@
+require 'dnssd'
+require 'socket'
 require 'httparty'
 require 'yaml'
 require 'redeyeconfig'
 
 class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
-  attr_accessor :reips  
 
   def initialize(config = {})
-	@reIP = Hash.new
-	@reIP = config["reips"]	
 	if @@redeyeIP.empty? 
 		init_redeyes
 	end
   	init_custom
-  	init_url
+  	init_url  	
   end
 
   class Rest
@@ -22,6 +21,33 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
 ############# Configuration
 
+  @@reIP = Hash.new
+  DNSSD.browse '_tf_redeye._tcp' do |reply|
+  	puts reply.name
+  	@@reIP[reply.name] = nil
+	puts @@reIP
+  end
+  
+=begin    
+
+  @@reIP = Hash.new
+  DNSSD.browse('_tf_redeye._tcp') do |b|
+  	puts "1 " + b.inspect
+  	puts "2 " + b.name
+  	puts "3 " + b.type
+  	puts "4 " + b.domain
+  	DNSSD.resolve(b.name, b.type, b.domain) do |r| 
+  		puts "5 " + r.inspect
+  		puts "6 " + r.target
+#		addr = Socket.getaddrinfo(r.target, "http", nil, :STREAM) 
+#		puts "9 " + addr 
+		@@reIP[b.name] = r.target
+  	end
+	puts "10 #{@@reIP}"
+  end
+   
+=end
+ 
   begin
   	@@redeyeIP = YAML.load File.read("#{Dir.home}/.siriproxy/reRedeye.yml")
   	@@roomID = YAML.load File.read("#{Dir.home}/.siriproxy/reRoom.yml")
@@ -218,8 +244,9 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 ############# Initialization
   
   def init_redeyes
-  	@reIP.each do |index, address|
- 		redeye = Rest.get("http://" + address + ":8080/redeye/").parsed_response["redeye"]
+  	@@reIP.each_key do |address|
+  		puts "http://" + address.downcase + ":8080/redeye/"
+ 		redeye = Rest.get("http://" + address.downcase + ":8080/redeye/").parsed_response["redeye"]
  		puts redeye
  		unless redeye.nil?
  			@@redeyeIP[redeye["name"].downcase.strip] = "http://" + address + ":8080/redeye" 
