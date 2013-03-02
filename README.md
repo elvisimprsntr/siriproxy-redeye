@@ -36,6 +36,10 @@ Here is a simple [BASH script] (https://gist.github.com/3961767) which you can m
 Installation
 ------------
 
+- Install DNSSD library dependancies
+
+`apt-get install libavahi-compat-libdnssd-dev -y` 
+
 - Navigate to the SiriProxy plugins directory  
 
 `cd ~/SiriProxy/plugins/`
@@ -122,9 +126,7 @@ Usage
 To Do List
 ----------
 
-Let me know if you want to collaborate.   
-
-- Pull in channel guide from Rovi, Zap2It, Yahoo, AOL, or some other TV guide database.
+If you want to collaborate, review the issues list for things to implement.  Fork, modify, test, and submit a pull request. 
 
 
 Licensing
