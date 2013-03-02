@@ -122,10 +122,7 @@ Usage
 To Do List
 ----------
 
-Let me know if you want to collaborate.   
-
-- Pull in channel guide from Rovi, Zap2It, Yahoo, AOL, or some other TV guide database.
-
+If you want to collaborate, review the issues list for things to implement.  Fork, modify, test, and submitt a pull request. 
 
 Licensing
 ---------
