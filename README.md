@@ -122,7 +122,7 @@ Usage
 To Do List
 ----------
 
-If you want to collaborate, review the issues list for things to implement.  Fork, modify, test, and submitt a pull request. 
+If you want to collaborate, review the issues list for things to implement.  Fork, modify, test, and submit a pull request. 
 
 Licensing
 ---------
