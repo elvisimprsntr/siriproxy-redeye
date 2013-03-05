@@ -24,30 +24,11 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   @@reIP = Hash.new
   DNSSD.browse '_tf_redeye._tcp' do |reply|
   	puts reply.name
-  	@@reIP[reply.name] = nil
+#	addr = Socket.getaddrinfo(reply.name + ".local.", nil, Socket::AF_INET)
+  	@@reIP[reply.name] = nil #addr
 	puts @@reIP
   end
-  
-=begin    
-
-  @@reIP = Hash.new
-  DNSSD.browse('_tf_redeye._tcp') do |b|
-  	puts "1 " + b.inspect
-  	puts "2 " + b.name
-  	puts "3 " + b.type
-  	puts "4 " + b.domain
-  	DNSSD.resolve(b.name, b.type, b.domain) do |r| 
-  		puts "5 " + r.inspect
-  		puts "6 " + r.target
-#		addr = Socket.getaddrinfo(r.target, "http", nil, :STREAM) 
-#		puts "9 " + addr 
-		@@reIP[b.name] = r.target
-  	end
-	puts "10 #{@@reIP}"
-  end
    
-=end
- 
   begin
   	@@redeyeIP = YAML.load File.read("#{Dir.home}/.siriproxy/reRedeye.yml")
   	@@roomID = YAML.load File.read("#{Dir.home}/.siriproxy/reRoom.yml")
