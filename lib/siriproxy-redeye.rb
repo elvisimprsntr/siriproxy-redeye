@@ -6,29 +6,19 @@ require 'redeyeconfig'
 
 class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
-  def initialize(config = {})
-	if @@redeyeIP.empty? 
-		init_redeyes
-	end
-  	init_custom
-  	init_url  	
-  end
-
   class Rest
     include HTTParty
     format :xml
   end
 
-############# Configuration
-
-  @@reIP = Hash.new
-  DNSSD.browse '_tf_redeye._tcp' do |reply|
-  	puts reply.name
-#	addr = Socket.getaddrinfo(reply.name + ".local.", nil, Socket::AF_INET)
-  	@@reIP[reply.name] = nil #addr
-	puts @@reIP
-  end
+############# Initialization
    
+  @@reIP = Hash.new
+  DNSSD.browse '_tf_redeye._tcp.' do |reply|
+	addr = Socket.getaddrinfo(reply.name + ".local.", nil, Socket::AF_INET)
+	@@reIP[reply.name] = addr[0][2]
+  end
+
   begin
   	@@redeyeIP = YAML.load File.read("#{Dir.home}/.siriproxy/reRedeye.yml")
   	@@roomID = YAML.load File.read("#{Dir.home}/.siriproxy/reRoom.yml")
@@ -42,7 +32,15 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	@@activityID = Hash.new { |h,k| h[k] = Hash.new }
   	@@commandID = Hash.new(&(p=lambda{|h,k| h[k] = Hash.new(&p)}))
   end
-  
+   
+  def initialize(config)
+  	if @@redeyeIP.empty?
+  		init_redeyes
+ 	end
+#	init_custom
+#  	init_url  	
+  end
+
 ############# Commands
   
   listen_for(/redeye initialize/i) do
@@ -225,7 +223,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 ############# Initialization
   
   def init_redeyes
-  	@@reIP.each_key do |address|
+  	@@reIP.each_value do |address|
   		puts "http://" + address.downcase + ":8080/redeye/"
  		redeye = Rest.get("http://" + address.downcase + ":8080/redeye/").parsed_response["redeye"]
  		puts redeye
