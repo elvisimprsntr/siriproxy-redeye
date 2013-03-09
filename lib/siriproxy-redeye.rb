@@ -15,8 +15,10 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
    
   @@reIP = Hash.new
   DNSSD.browse '_tf_redeye._tcp.' do |reply|
+  	puts reply.name
 	addr = Socket.getaddrinfo(reply.name + ".local.", nil, Socket::AF_INET)
 	@@reIP[reply.name] = addr[0][2]
+	puts @@reIP
   end
 
   begin
