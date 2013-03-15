@@ -5,7 +5,7 @@ About
 -----
 Siriproxy-redeye is a [SiriProxy] (https://github.com/plamoni/SiriProxy) plugin that uses the REST API of [Thinkflood's RedEye] (http://thinkflood.com) series of IP to IR control devices.  It does not require a jailbreak, nor do I endorse doing so.
 
-First, you must have SiriProxy installed and working.  [HOW-TOs for Siriprixy] (https://github.com/plamoni/SiriProxy/wiki/Installation-How-Tos) 
+First, you must have SiriProxy installed and working.  [HOW-TOs for SiriProxy] (https://github.com/plamoni/SiriProxy/wiki/Installation-How-Tos) 
 
 Second, you must have at least one RedEye unit configured with a static IP address on your network and already programmed to control your IR devices.   
 
@@ -33,28 +33,23 @@ Here is a simple [BASH script] (https://gist.github.com/3961767) which you can m
 
 
 
-Installation
-------------
+Installation (New for SiriProxy 0.5.0+)
+---------------------------------------
+
 
 - Install DNSSD library dependancies
 
 `apt-get install libavahi-compat-libdnssd-dev -y` 
 
-- Navigate to the SiriProxy plugins directory  
+- Create a plugins directory  
 
-`cd ~/SiriProxy/plugins/`
+`mkdir ~/plugins`  
+
+`cd ~/plugins/` 
 
 - Get the latest repo   
 
-`wget "https://github.com/elvisimprsntr/siriproxy-redeye/zipball/master"`
-
-- Unzip the repo  
-
-`unzip master`
-
-- Create a symbolic link. **Note: Replace #'s as appropriate.**  
-
-`ln -sf elvisimprsntr-siriproxy-redeye-####### siriproxy-redeye`
+`git clone git://github.com/elvisimprsntr/siriproxy-redeye`
 
 - Add the example configuration to the master config.yml  
 
@@ -68,26 +63,14 @@ Installation
 
 `vim siriproxy-redeye/lib/redeyeconfig.rb`
 
-- Copy the repo and the symbolic link to the appropriate install directory.  **Note: Replace #'s as appropriate.  Replace /usr/local/rvm/ with ~/.rvm/ depending on your Linux distribution**     
-
-`cp -rv elvisimprsntr-siriproxy-redeye-####### /usr/local/rvm/gems/ruby-1.9.3-p###@SiriProxy/gems/siriproxy-0.3.#/plugins/`    
-`cp -rv siriproxy-redeye /usr/local/rvm/gems/ruby-1.9.3-p###@SiriProxy/gems/siriproxy-0.3.#/plugins/`    
-
-- Navigate the SiriProxy directory  
-
-`cd ~/SiriProxy`
-
 - Bundle  
 
 `siriproxy bundle`
 
-- Install  
+- Run (Ref: https://github.com/plamoni/SiriProxy#set-up-instructions)  
 
-`bundle install`
+`[rvmsudo] siriproxy server [-d ###.###.###.###] [-u username]`
 
-- Run  
-
-`siriproxy server`
 
 Usage
 -----

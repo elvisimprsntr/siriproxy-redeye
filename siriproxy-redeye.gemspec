@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "siriproxy-redeye"
-  s.version     = "2.0.4"
+  s.version     = "2.1.0"
   s.authors     = ["elvisimprsntr"]
   s.email       = [""]
   s.homepage    = "https://github.com/elvisimprsntr/siriproxy-redeye"
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.add_runtime_dependency "httparty"
   s.add_runtime_dependency "dnssd"
-  s.add_runtime_dependency "siriproxy", ">=0.4.4"
+  s.add_runtime_dependency "siriproxy", ">=0.5.2"
 
 
 end
