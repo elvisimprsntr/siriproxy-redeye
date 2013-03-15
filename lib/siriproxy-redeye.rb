@@ -22,12 +22,16 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   begin
+	@@default = YAML.load File.read("#{Dir.home}/.siriproxy/reDefault.yml")
+  	@@reSel = YAML.load File.read("#{Dir.home}/.siriproxy/reSel.yml")
   	@@redeyeIP = YAML.load File.read("#{Dir.home}/.siriproxy/reRedeye.yml")
   	@@roomID = YAML.load File.read("#{Dir.home}/.siriproxy/reRoom.yml")
   	@@deviceID = YAML.load File.read("#{Dir.home}/.siriproxy/reDevice.yml")
   	@@activityID = YAML.load File.read("#{Dir.home}/.siriproxy/reActivity.yml")
   	@@commandID = YAML.load File.read("#{Dir.home}/.siriproxy/reCommand.yml")
   rescue
+	@@reSel = Hash.new
+	@@reSel = Hash.new
 	@@redeyeIP = Hash.new
    	@@roomID = Hash.new { |h,k| h[k] = Hash.new }
 	@@deviceID = Hash.new { |h,k| h[k] = Hash.new }
@@ -38,9 +42,11 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   def initialize(config)
   	if @@redeyeIP.empty?
   		init_redeyes
+  		init_custom
+		File.write "#{Dir.home}/.siriproxy/reDefault.yml", YAML.dump(@default)
+		File.write "#{Dir.home}/.siriproxy/reStation.yml", YAML.dump(@stationID)
+  		init_url
  	end
-#	init_custom
-#  	init_url  	
   end
 
 ############# Commands
@@ -241,7 +247,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 		File.write "#{Dir.home}/.siriproxy/reActivity.yml", YAML.dump(@@activityID)
 		File.write "#{Dir.home}/.siriproxy/reCommand.yml", YAML.dump(@@commandID)
 	rescue
-		init_redeyes
+		puts "Error caching RedEye files."
 	end
  end		
  		
