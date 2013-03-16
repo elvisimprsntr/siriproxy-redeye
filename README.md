@@ -59,9 +59,13 @@ Installation (New for SiriProxy 0.5.0+)
 
 `vim ~/.siriproxy/config.yml`
 
-- Edit the redeyeconfig.rb as you wish.  **Note: Repeat all the following steps if you make additional changes.**    
+- Edit the reStation.yml to station names to channel number.  **Note: Repeat all the following steps if you make additional changes.**    
 
-`vim siriproxy-redeye/lib/redeyeconfig.rb`
+`vim siriproxy-redeye/lib/reStation.yml`
+
+- Edit the reDefault.yml to specify the a default redeye/room/device/feed.  **Note: Repeat all the following steps if you make additional changes.**    
+
+`vim siriproxy-redeye/lib/reDefault.yml`
 
 - Bundle.  **Note: This will take awhile the first time while DNSSD gem compiles from source.**
 
