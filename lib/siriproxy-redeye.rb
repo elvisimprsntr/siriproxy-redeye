@@ -14,17 +14,16 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
    
   @@reIP = Hash.new
   DNSSD.browse '_tf_redeye._tcp.' do |reply|
-  	puts reply.name
+	puts "[Info - Redeye] Bonjour discovery: " + reply.name  
 	addr = Socket.getaddrinfo(reply.name + ".local.", nil, Socket::AF_INET)
 	@@reIP[reply.name] = addr[0][2]
-	puts @@reIP
   end
 
   begin
 	@@Default = YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reDefault.yml")))
   	@@stationID = 	YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reStation.yml")))
   rescue
-  	puts "Error reading reDefault.yml or reStation.yml file."
+  	puts "[Warning - RedEye] Error reading reDefault.yml and/or reStation.yml file."
   end
   
   begin
@@ -36,21 +35,17 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   	@@commandID = YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reCommand.yml")))
 	@@cmdURL = @@redeyeIP[@@reSel["redeye"]] + @@roomID[@@reSel["redeye"]][@@reSel["room"]] + @@deviceID[@@reSel["room"]][@@reSel["device"]]
   rescue
-	puts "RedEye plugin not initialized."
-	@@reSel = Hash.new	
+	@@reSel = @@Default	
 	@@redeyeIP = Hash.new
    	@@roomID = Hash.new { |h,k| h[k] = Hash.new }
 	@@deviceID = Hash.new { |h,k| h[k] = Hash.new }
 	@@activityID = Hash.new { |h,k| h[k] = Hash.new }
   	@@commandID = Hash.new(&(p=lambda{|h,k| h[k] = Hash.new(&p)}))
+	puts "[Warning - RedEye] Plugin not initialized. Say RedEye Initialize."
   end
    
   def initialize(config)
-#  	if @@reSel.nil?
-#		@@reSel = @@Default
-#		init_redeyes
-#		update_resel
-# 	end
+	# Anything put here gets run during SiriProxy startup.
   end
 
 ############# Commands
@@ -216,29 +211,30 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 ############# Remember
 
   def update_resel
-	File.write File.expand_path(File.dirname( __FILE__ )) + "/reSel.yml", YAML.dump(@@reSel)
+	File.write(File.expand_path(File.dirname( __FILE__ )) + "/reSel.yml", YAML.dump(@@reSel))
 	@@cmdURL = @@redeyeIP[@@reSel["redeye"]] + @@roomID[@@reSel["redeye"]][@@reSel["room"]] + @@deviceID[@@reSel["room"]][@@reSel["device"]]
   end
 		  		
 ############# Initialization
   
   def init_redeyes
-  	@@reIP.each_value do |address|
+  	@@reIP.each do |key, address|
+ 		puts "[Info - RedEye] Initializing: " + key
  		redeye = Rest.get("http://" + address.downcase + ":8080/redeye/").parsed_response["redeye"]
- 		puts redeye
  		unless redeye.nil?
  			@@redeyeIP[redeye["name"].downcase.strip] = "http://" + address + ":8080/redeye" 
  	  		init_rooms(redeye["name"].downcase.strip)
  		end
 	end
+	
 	begin
-		File.write File.expand_path(File.dirname( __FILE__ )) + "/reRedeye.yml", YAML.dump(@@redeyeIP)
-		File.write File.expand_path(File.dirname( __FILE__ )) + "/reRoom.yml", YAML.dump(@@roomID)
-		File.write File.expand_path(File.dirname( __FILE__ )) + "/reDevice.yml", YAML.dump(@@deviceID)
-		File.write File.expand_path(File.dirname( __FILE__ )) + "/reActivity.yml", YAML.dump(@@activityID)
-		File.write File.expand_path(File.dirname( __FILE__ )) + "/reCommand.yml", YAML.dump(@@commandID)
+		File.write(File.expand_path(File.dirname( __FILE__ )) + "/reRedeye.yml", YAML.dump(@@redeyeIP))
+		File.write(File.expand_path(File.dirname( __FILE__ )) + "/reRoom.yml", YAML.dump(@@roomID))
+		File.write(File.expand_path(File.dirname( __FILE__ )) + "/reDevice.yml", YAML.dump(@@deviceID))
+		File.write(File.expand_path(File.dirname( __FILE__ )) + "/reActivity.yml", YAML.dump(@@activityID))
+		File.write(File.expand_path(File.dirname( __FILE__ )) + "/reCommand.yml", YAML.dump(@@commandID))
 	rescue
-		puts "Error caching RedEye files."
+		puts "[Warning - RedEye] Error caching RedEye configuration files."
 	end
  end		
  		
