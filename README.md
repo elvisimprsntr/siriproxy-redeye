@@ -76,6 +76,7 @@ Usage
 -----
 
 **Redeye initialize**
+- You will need use this command at least once to initialize the plugin.
 - Will re-initialize the plugin when you have made changes to your RedEye units.
 
 **Channel (number {point number})**
