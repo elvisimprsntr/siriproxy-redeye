@@ -59,7 +59,7 @@ Installation (New for SiriProxy 0.5.0+)
 
 `vim ~/.siriproxy/config.yml`
 
-- Edit the reStation.yml for station names to channel number.  **Note: Repeat all the following steps if you make additional changes.**    
+- Edit the reStation.yml for station names to channel numbers.  **Note: Repeat all the following steps if you make additional changes.**    
 
 `vim siriproxy-redeye/lib/reStation.yml`
 
