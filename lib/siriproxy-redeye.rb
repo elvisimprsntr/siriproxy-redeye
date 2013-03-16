@@ -2,7 +2,6 @@ require 'dnssd'
 require 'socket'
 require 'httparty'
 require 'yaml'
-require 'redeyeconfig'
 
 class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
@@ -22,16 +21,23 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   begin
-	@@default = YAML.load File.read("#{Dir.home}/.siriproxy/reDefault.yml")
-  	@@reSel = YAML.load File.read("#{Dir.home}/.siriproxy/reSel.yml")
-  	@@redeyeIP = YAML.load File.read("#{Dir.home}/.siriproxy/reRedeye.yml")
-  	@@roomID = YAML.load File.read("#{Dir.home}/.siriproxy/reRoom.yml")
-  	@@deviceID = YAML.load File.read("#{Dir.home}/.siriproxy/reDevice.yml")
-  	@@activityID = YAML.load File.read("#{Dir.home}/.siriproxy/reActivity.yml")
-  	@@commandID = YAML.load File.read("#{Dir.home}/.siriproxy/reCommand.yml")
+	@@Default = YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reDefault.yml")))
+  	@@stationID = 	YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reStation.yml")))
   rescue
-	@@reSel = Hash.new
-	@@reSel = Hash.new
+  	puts "Error reading reDefault.yml or reStation.yml file."
+  end
+  
+  begin
+  	@@reSel = YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reSel.yml")))
+  	@@redeyeIP = YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reRedeye.yml")))
+  	@@roomID = YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reRoom.yml")))
+  	@@deviceID = YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reDevice.yml")))
+  	@@activityID = YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reActivity.yml")))
+  	@@commandID = YAML.load(File.read(File.expand_path(File.dirname( __FILE__ ) + "/reCommand.yml")))
+	@@cmdURL = @@redeyeIP[@@reSel["redeye"]] + @@roomID[@@reSel["redeye"]][@@reSel["room"]] + @@deviceID[@@reSel["room"]][@@reSel["device"]]
+  rescue
+	puts "RedEye plugin not initialized."
+	@@reSel = Hash.new	
 	@@redeyeIP = Hash.new
    	@@roomID = Hash.new { |h,k| h[k] = Hash.new }
 	@@deviceID = Hash.new { |h,k| h[k] = Hash.new }
@@ -40,13 +46,11 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
    
   def initialize(config)
-  	if @@redeyeIP.empty?
-  		init_redeyes
-  		init_custom
-		File.write "#{Dir.home}/.siriproxy/reDefault.yml", YAML.dump(@default)
-		File.write "#{Dir.home}/.siriproxy/reStation.yml", YAML.dump(@stationID)
-  		init_url
- 	end
+#  	if @@reSel.nil?
+#		@@reSel = @@Default
+#		init_redeyes
+#		update_resel
+# 	end
   end
 
 ############# Commands
@@ -55,8 +59,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	say "One moment while I initialize RedEye plugin..."
 	Thread.new {
 		init_redeyes
-		init_custom
-		init_url
+		update_resel
 		say "SiriProxy RedEye plugin initialized."
 		request_completed
 	}		
@@ -73,7 +76,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   listen_for(/activity (.*)/i) do |activity|
-	launch_activity(@reSel["room"], activity.downcase.strip)
+	launch_activity(@@reSel["room"], activity.downcase.strip)
 	request_completed		
   end
 
@@ -88,12 +91,12 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   listen_for(/room (.*)/i) do |room|
-	change_room(@reSel["redeye"], room.downcase.strip)
+	change_room(@@reSel["redeye"], room.downcase.strip)
 	request_completed		
   end
 
   listen_for(/device (.*)/i) do |device|
-	change_device(@reSel["room"], device.downcase.strip)
+	change_device(@@reSel["room"], device.downcase.strip)
 	request_completed		
   end
 
@@ -109,14 +112,14 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	say "Changing to channel #{number}."
 	channelno = number.to_s.split('')
 	while i < channelno.length do
-		Rest.get(@cmdURL + @@commandID[@reSel["room"]][@reSel["device"]][channelno[i]])
+		Rest.get(@@cmdURL + @@commandID[@@reSel["room"]][@@reSel["device"]][channelno[i]])
 		sleep(0.2)
 		i+=1
 	end
   end	
 
   def change_station(station)
-	number = @stationID[@reSel["feed"]][station]
+	number = @@stationID[@@reSel["feed"]][station]
 	unless number.nil?
 		change_channel number
 	else
@@ -128,7 +131,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 	activityid = @@activityID[room][activity]
 	unless activityid.nil?
 		say "OK. Launching activity #{activity}."
-		Rest.get(@cmdURL + activityid)
+		Rest.get(@@cmdURL + activityid)
 	else
 		say "Sorry, I am not programmed for activity #{activity}."
 		say "Here is the list of activities in room #{room}."
@@ -139,10 +142,10 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   def send_command(command)
-	commandid = @@commandID[@reSel["room"]][@reSel["device"]][command]
+	commandid = @@commandID[@@reSel["room"]][@@reSel["device"]][command]
 	unless commandid.nil?
 		say "Sending command #{command}."
-		Rest.get(@cmdURL + commandid)
+		Rest.get(@@cmdURL + commandid)
 	else
 		say "Sorry, I am not programmed for command #{command}."
 	end
@@ -151,7 +154,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   def change_redeye(redeye)
 	unless @@redeyeIP[redeye].nil?
 		say "Changing to RedEye #{redeye}."
-		@reSel["redeye"] = redeye
+		@@reSel["redeye"] = redeye
 		if @@roomID[redeye].length == 1
 			change_room(redeye, @@roomID[redeye].keys[0])
 		else
@@ -170,7 +173,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   def change_room(redeye, room)
 	unless @@roomID[redeye][room].nil?
 		say "Changing to room #{room}."
-		@reSel["room"] = room
+		@@reSel["room"] = room
 		if @@deviceID[room].length == 1
 			change_device(room, @@deviceID[room].keys[0])
 		else
@@ -189,7 +192,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   def change_device(room, device)
 	unless @@deviceID[room][device].nil?
 		say "Changing to device #{device}."
-		@reSel["device"] = device
+		@@reSel["device"] = device
 		update_resel
 	else
 		say "Sorry, I am not programmed to control device #{device}."
@@ -201,9 +204,9 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
 
   def change_feed(feed)
-	if @stationID.has_key?(feed)
+	if @@stationID.has_key?(feed)
 		say "Changing to feed #{feed}."
-		@reSel["feed"] = feed
+		@@reSel["feed"] = feed
 		update_resel
 	else
 		say "Sorry, I am not programmed for feed #{feed}."
@@ -212,27 +215,15 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
 
 ############# Remember
 
-  def init_url
-  	begin
-  		@reSel = YAML.load File.read("#{Dir.home}/.siriproxy/reSel.yml")
-  	rescue
-		@reSel = @default
-		File.write "#{Dir.home}/.siriproxy/reSel.yml", YAML.dump(@reSel)
-	end
-	puts @reSel
-	@cmdURL = @@redeyeIP[@reSel["redeye"]] + @@roomID[@reSel["redeye"]][@reSel["room"]] + @@deviceID[@reSel["room"]][@reSel["device"]]
+  def update_resel
+	File.write File.expand_path(File.dirname( __FILE__ )) + "/reSel.yml", YAML.dump(@@reSel)
+	@@cmdURL = @@redeyeIP[@@reSel["redeye"]] + @@roomID[@@reSel["redeye"]][@@reSel["room"]] + @@deviceID[@@reSel["room"]][@@reSel["device"]]
   end
 		  		
-  def update_resel
-	File.write "#{Dir.home}/.siriproxy/reSel.yml", YAML.dump(@reSel)
-	init_url
-  end
-
 ############# Initialization
   
   def init_redeyes
   	@@reIP.each_value do |address|
-  		puts "http://" + address.downcase + ":8080/redeye/"
  		redeye = Rest.get("http://" + address.downcase + ":8080/redeye/").parsed_response["redeye"]
  		puts redeye
  		unless redeye.nil?
@@ -241,11 +232,11 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
  		end
 	end
 	begin
-		File.write "#{Dir.home}/.siriproxy/reRedeye.yml", YAML.dump(@@redeyeIP)
-		File.write "#{Dir.home}/.siriproxy/reRoom.yml", YAML.dump(@@roomID)
-		File.write "#{Dir.home}/.siriproxy/reDevice.yml", YAML.dump(@@deviceID)
-		File.write "#{Dir.home}/.siriproxy/reActivity.yml", YAML.dump(@@activityID)
-		File.write "#{Dir.home}/.siriproxy/reCommand.yml", YAML.dump(@@commandID)
+		File.write File.expand_path(File.dirname( __FILE__ )) + "/reRedeye.yml", YAML.dump(@@redeyeIP)
+		File.write File.expand_path(File.dirname( __FILE__ )) + "/reRoom.yml", YAML.dump(@@roomID)
+		File.write File.expand_path(File.dirname( __FILE__ )) + "/reDevice.yml", YAML.dump(@@deviceID)
+		File.write File.expand_path(File.dirname( __FILE__ )) + "/reActivity.yml", YAML.dump(@@activityID)
+		File.write File.expand_path(File.dirname( __FILE__ )) + "/reCommand.yml", YAML.dump(@@commandID)
 	rescue
 		puts "Error caching RedEye files."
 	end
