@@ -45,7 +45,7 @@ class SiriProxy::Plugin::RedEye < SiriProxy::Plugin
   end
    
   def initialize(config)
-	# Anything put here gets run during SiriProxy startup.
+	# Unfortunately, anything put here gets run during SiriProxy >= 0.4.2 startup.
   end
 
 ############# Commands
