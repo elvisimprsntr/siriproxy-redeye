@@ -112,7 +112,10 @@ To Do List
 
 If you want to collaborate, review the issues list for things to implement.  Fork, modify, test, and submit a pull request. 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> dev
 
 >>>>>>> itterating on auto discovery
 
