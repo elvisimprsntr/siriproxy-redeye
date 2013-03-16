@@ -1,0 +1,9 @@
+---
+antenna:
+  nbc: '5.1'
+  cbs: '12.1'
+  radar: '12.3'
+  weather: '12.3'
+  abc: '25.1'
+  fox: '29.1'
+  pbs: '42.1'
