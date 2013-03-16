@@ -63,7 +63,7 @@ Installation (New for SiriProxy 0.5.0+)
 
 `vim siriproxy-redeye/lib/reStation.yml`
 
-- Edit the reDefault.yml to specify the a default redeye/room/device/feed.  **Note: Repeat all the following steps if you make additional changes.**    
+- Edit the reDefault.yml to specify a default redeye/room/device/feed.  **Note: Repeat all the following steps if you make additional changes.**    
 
 `vim siriproxy-redeye/lib/reDefault.yml`
 
