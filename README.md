@@ -9,7 +9,7 @@ First, you must have SiriProxy installed and working.  [HOW-TOs for SiriProxy] (
 
 Second, you must have at least one RedEye unit configured with a static IP address on your network and already programmed to control your IR devices.   
 
-Third, siriproxy-redeye plugin will now auto detect your RedEye configuration, but you will need to customize the redeyeconfig.rb file for your specific installation. 
+Third, siriproxy-redeye plugin will now auto discover and configure your RedEye configuration, but you will need to customize the `reDefault.yml` and `reStation.yml` files for your specific installation. 
 
 Here is a short demonstration video: http://www.youtube.com/watch?v=PXmCiaRc9XU#t=01m33s 
 
