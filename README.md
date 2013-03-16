@@ -63,7 +63,7 @@ Installation (New for SiriProxy 0.5.0+)
 
 `vim siriproxy-redeye/lib/redeyeconfig.rb`
 
-- Bundle  
+- Bundle.  **Note: This will take awhile the first time while DNSSD gem compiles from source.**
 
 `siriproxy bundle`
 
