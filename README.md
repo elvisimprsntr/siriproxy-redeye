@@ -37,7 +37,7 @@ Installation (New for SiriProxy 0.5.0+)
 ---------------------------------------
 
 
-- Install DNSSD library dependancies
+- Install AVAHI and DNSSD library dependancies
 
 `apt-get install libavahi-compat-libdnssd-dev -y` 
 
