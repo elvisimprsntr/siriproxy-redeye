@@ -11,7 +11,9 @@ Second, you must have at least one RedEye unit configured with a static IP addre
 
 Third, siriproxy-redeye plugin will now auto discover and configure your RedEye configuration, but you will need to customize the `reDefault.yml` and `reStation.yml` files for your specific installation. 
 
-Here is a short demonstration video: http://www.youtube.com/watch?v=PXmCiaRc9XU#t=01m33s 
+[Watch Demo Video](http://www.youtube.com/watch?v=4xanhsdKN4s)  
+
+[![Video](http://img.youtube.com/vi/4xanhsdKN4s/hqdefault.jpg)](http://www.youtube.com/watch?v=4xanhsdKN4s)
 
 I can't thank enough some of very talented folks at [Stackoverflow] (http://stackoverflow.com) for helping me improve my code.  Admittedly, I still have a lot more to learn and improve upon as this is my first SiriProxy plugin from scratch. 
 
